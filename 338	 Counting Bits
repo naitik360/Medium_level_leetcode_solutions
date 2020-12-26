@@ -1,0 +1,12 @@
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> b(num+1);
+        b[0]=0;
+        for(int i=1;i<=num;i++)
+        { 
+          b[i]=b[i>>1]+(1&i);  // its just like calling recusively 
+        }                      // this link might give a deeper knowledge https://www.geeksforgeeks.org/count-set-bits-in-an-integer/
+        return b;
+    }
+};
