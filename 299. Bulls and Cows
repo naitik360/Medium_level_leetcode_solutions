@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string getHint(string s, string g) {
+        map<char,int> m,k;
+        int t=0,h=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]==g[i])
+                 t++;
+            else
+            {
+                m[s[i]]++;
+                k[g[i]]++;
+            }
+        }
+        for(auto i : m)
+        {
+            if(k.find(i.first)!=k.end())
+                h=h+min(i.second,k[i.first]);
+        }
+        
+        string a=to_string(t)+"A"+to_string(h)+"B";
+        return a;
+    }
+};
