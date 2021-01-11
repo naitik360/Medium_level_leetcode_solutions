@@ -1,0 +1,14 @@
+class Solution {
+public:
+    void printLinkedListInReverse(ImmutableListNode* head) {
+        if(head->getNext() == nullptr)
+    {
+        head->printValue();
+        return;
+    }
+    
+    printLinkedListInReverse(head->getNext());
+    
+    head->printValue();
+    }
+};
