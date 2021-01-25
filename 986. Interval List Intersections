@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& v, vector<vector<int>>& c) {
+         vector<vector<int>> a;
+        int i=0,j=0;
+         while(i<v.size() && j<c.size())   
+         {   
+             int t=(max(v[i][0],c[j][0]));
+             int h=(min(v[i][1],c[j][1])); 
+             if(t<=h)
+              a.push_back({t,h}); 
+             if(v[i][1]<c[j][1])
+                   i++;
+             else
+                   j++;
+         }
+        return a;
+    }
+};
