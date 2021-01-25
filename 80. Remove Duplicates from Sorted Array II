@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& v) {
+        
+        unordered_map<int,int> m;
+        int i=0,t=0;
+        while(i<v.size())
+        {
+            m[v[i]]++;
+            if(m[v[i]]<=2)
+                v[t++]=v[i];
+            i++;
+        }
+      return t;
+    }
+};
