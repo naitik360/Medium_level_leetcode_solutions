@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& v, int k) {
+        
+        multimap<int,int> m;
+      
+        for(int i=0;i<v.size();i++)
+        {
+            m.insert(pair <int, int> ((v[i][0]*v[i][0]+v[i][1]*v[i][1]),i));
+        }
+        
+        vector<vector<int>> c;
+        
+        
+        for(auto i : m)
+        { 
+            c.push_back({v[i.second][0],v[i.second][1]});
+            k--;
+            if(k==0)
+              break;
+        }
+        
+      return c;
+        
+    }
+};
