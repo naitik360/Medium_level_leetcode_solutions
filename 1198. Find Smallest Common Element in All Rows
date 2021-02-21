@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int smallestCommonElement(vector<vector<int>>& mat) {
+        map<int,int> Map;
+        for(int j = 0 ; j < mat[0].size() ; ++j)
+        {
+           int test = mat[0][j];
+           bool check = true; 
+           for(int i = 1 ; i < mat.size() ; i++)
+           {
+               vector<int> rest = mat[i];
+              if (!binary_search(rest.begin(), rest.end(),test))
+              {
+                  check = false;
+                  break;
+              }
+           }
+           if(check)
+               return test;
+        }
+       
+        
+        return -1;
+    }
+};
