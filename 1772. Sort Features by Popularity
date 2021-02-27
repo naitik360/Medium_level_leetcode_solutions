@@ -1,0 +1,52 @@
+class Solution {
+public:
+    vector<string> sortFeatures(const vector<string>& features, vector<string>& responses) {
+        
+        
+        unordered_map<string, int> histo;
+        unordered_map<string, size_t> order;
+        size_t order_no = 0;
+        for (auto&& feat : features) {
+            histo[feat] = 0;
+            order[feat] = order_no++;
+        }
+        
+        for (auto&& resp : responses) {
+
+            size_t pos = 0;
+            unordered_set<string> blanked;
+            do { 
+                size_t endw = resp.find(" ",pos);
+                string try_word;
+                if (endw != string::npos) 
+                    try_word = resp.substr(pos, endw - pos);
+                else 
+                    try_word = resp.substr(pos);
+
+                if (histo.count(try_word) && !blanked.count(try_word)) {
+                    --histo[try_word];
+                    blanked.insert(try_word);
+                }
+                 pos += try_word.size() + 1;
+                
+            } while (pos < resp.size());
+        }
+            vector<pair<string,int>> results;
+            for (auto&& p : histo)
+                results.push_back({p.first, p.second});
+
+            sort (begin(results), end(results), 
+                  [&order] (const auto&p, const auto&q) {
+                      if (p.second == q.second)
+                          return order[p.first] < order[q.first]; 
+                      return p.second < q.second;
+                  }
+                 );
+
+            vector<string> sol;
+            for (auto&& p : results)
+                sol.push_back(p.first);
+            return sol;
+        }  
+    
+};
