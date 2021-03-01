@@ -1,0 +1,34 @@
+class Solution {
+public:
+    TreeNode* getTargetCopy(TreeNode* o, TreeNode* n, TreeNode* B) {
+      queue<TreeNode*> qo,qn;
+      qo.push(o);
+      qn.push(n);
+        TreeNode* ans=NULL;
+      while(!qo.empty())
+      {
+          
+              TreeNode* k=qo.front();
+              TreeNode* h=qn.front();
+              qo.pop();
+              qn.pop();
+              if(k==B)
+              {   
+                  ans=h;
+                  break;
+                
+              }
+              if(k->left)
+              {
+                  qo.push(k->left);
+                  qn.push(h->left);
+              }
+              if(k->right)
+              {
+                  qo.push(k->right);
+                  qn.push(h->right);
+              }
+        }
+      return ans;
+    }
+};
