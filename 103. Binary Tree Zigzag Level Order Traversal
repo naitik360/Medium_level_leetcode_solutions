@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(!root)
+             return {};
+         vector<vector<int>> v;
+         queue<TreeNode*> q;
+        q.push(root);
+         int l=-1;
+         while(!q.empty())
+         {   
+             l++;
+             int t=q.size();
+             vector<int> h;
+             while(t--)
+             {
+                 TreeNode* k=q.front();
+                 q.pop();
+                 h.push_back(k->val);
+                 if(k->left)
+                    q.push(k->left);
+                 if(k->right)
+                    q.push(k->right);
+             }
+             v.push_back(h);
+         }
+        for(int i=0;i<v.size();i++)
+        {
+            if(i&1)
+                reverse(v[i].begin(),v[i].end());
+            else
+                 continue;
+        }
+        return v;
+     }
+};
