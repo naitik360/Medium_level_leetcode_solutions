@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int beautySum(string s) {
+    int sum=0,n=s.size();
+    for(int i=0;i<n;i++)
+     {     
+           int c[26]={0};
+           
+           for(int j=i;j<n;j++)
+           {
+               c[s[j]-'a']++;
+               int mn=n,mx=0;
+               for(int t=0;t<26;t++)
+               {
+                   if(c[t]!=0)
+                   {
+                       mx=max(mx,c[t]);
+                       mn=min(mn,c[t]);
+                   }
+               }
+               sum+=mx-mn;
+           }
+       }
+        return sum;
+    }
+};
