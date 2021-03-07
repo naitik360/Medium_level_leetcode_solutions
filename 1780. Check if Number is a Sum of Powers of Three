@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool checkPowersOfThree(int n) {
+        
+        
+        set<int> s;
+        bool ok=1;
+        while(n)
+        {   int h=0;
+            if(log(n)/log(3)>=0)
+             {  
+                h=floor((log(n)/log(3)));
+               // cout<<h<<"\n";
+             }
+            
+            n=n-pow(3,h);
+            if(s.find(h)!=s.end())
+            {
+                ok=0;
+               // cout<<"dtgbt";
+                break;
+            }
+            else
+                s.insert(h);
+        }
+       return ok;
+        
+        
+        
+        
+    }
+};
