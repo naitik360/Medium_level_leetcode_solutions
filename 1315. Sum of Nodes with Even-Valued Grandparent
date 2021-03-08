@@ -1,0 +1,36 @@
+class Solution {   int s=0;
+public:
+  
+    void find(TreeNode* root)
+    {
+        if(!root)
+             return ;
+        find(root->left);
+        if((root->val)%2==0)
+        {
+            if(root->left!=NULL)
+            {
+                if(root->left->left!=NULL)
+                     s=s+root->left->left->val;
+                if(root->left->right!=NULL)
+                     s=s+root->left->right->val;
+            }
+            
+            if(root->right!=NULL)
+            {
+                if(root->right->left!=NULL)
+                     s=s+root->right->left->val;
+                if(root->right->right!=NULL)
+                     s=s+root->right->right->val;
+            }
+        }
+        find(root->right);
+    }
+    
+    int sumEvenGrandparent(TreeNode* root){
+
+        find(root);
+        return s;
+    }
+    
+};
