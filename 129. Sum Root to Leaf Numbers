@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int s=0;
+    void find(int v[],int l)
+    {  int t=0;
+        for(int i=0;i<l;i++)
+        {
+            t=v[i]+t*10;
+        }
+        s=s+t;
+    }
+    void sum(TreeNode* root,int v[],int l)
+    {
+        if(!root)
+            return ;
+        v[l]=root->val;
+        l++;
+        if(root->left==NULL && root->right==NULL)
+            find(v,l);
+       
+        
+        sum(root->left,v,l);
+        sum(root->right,v,l);
+    }
+    int sumNumbers(TreeNode* root) {
+        int v[100000];
+        sum(root,v,0);
+        return s;
+    }
+};
