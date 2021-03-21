@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> sortTransformedArray(vector<int>& v, int a, int b, int c) {
+        priority_queue<int,vector<int>,greater<int>> q;
+        for(auto i : v)
+          q.push(a*i*i+b*i+c);
+        
+        vector<int> k;
+        while(!q.empty())
+        {
+            k.push_back(q.top());
+            q.pop();
+        }
+        return k;
+    }
+};
