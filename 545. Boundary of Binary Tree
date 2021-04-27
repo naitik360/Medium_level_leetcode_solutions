@@ -1,0 +1,51 @@
+
+class Solution {
+public:
+    vector<int> v;
+    void l(TreeNode* root){
+        if(!root)
+             return;
+        if(root->left)
+        {
+            v.push_back(root->val);
+            l(root->left);
+        }
+        else if(root->right)
+        {
+            v.push_back(root->val);
+            l(root->right);
+        }
+    }
+    void r(TreeNode* root){
+        if(!root)
+             return;
+        if(root->right)
+        {
+             r(root->right);
+             v.push_back(root->val);
+           
+        }
+        else if(root->left)
+        {   
+            r(root->left);
+            v.push_back(root->val);
+        }
+    }
+    void lf(TreeNode* root)
+    {
+        if(!root)
+             return;
+        lf(root->left);
+        if(!root->left && !root->right)
+            v.push_back(root->val);
+        lf(root->right);
+    }
+    vector<int> boundaryOfBinaryTree(TreeNode* root) {
+        v.push_back(root->val);
+        l(root->left);
+        lf(root->left);
+        lf(root->right);
+        r(root->right);
+        return v;
+    }
+};
