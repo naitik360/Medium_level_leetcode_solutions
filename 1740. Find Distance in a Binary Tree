@@ -1,0 +1,32 @@
+class Solution {
+public:
+    TreeNode* lca(TreeNode* root, int p, int q) {
+        if(!root)
+          return NULL;
+       if(root->val==p || root->val==q)
+          return root;
+       TreeNode* l=lca(root->left,p,q);
+       TreeNode* r=lca(root->right,p,q);
+       if(l && r)
+         return root;
+       if(l)
+         return l;
+       else
+         return r;
+    }
+    int find(TreeNode *root, int k, int level)
+{
+    if(root == NULL) return -1;
+    if(root->val == k) return level;
+ 
+    int left = find(root->left, k, level+1);
+   if (left == -1)
+       return find(root->right, k, level+1);
+    return left;
+}
+    int findDistance(TreeNode* root, int p, int q) {
+        TreeNode* t=lca(root,p,q);
+        return find(t,p,0)+find(t,q,0);
+    }
+    
+};
