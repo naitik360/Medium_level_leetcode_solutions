@@ -1,0 +1,30 @@
+class StockSpanner {
+public:
+    stack<int> s;
+    int t=-1;vector<int> a;
+    StockSpanner() {
+       s.push(0);  
+    }
+    
+    int next(int price) {
+         t++;
+         int k;
+         a.push_back(price);
+         for(int i=1;i<=1;i++){
+         if(s.empty())
+          {
+             s.push(price);
+             continue;
+          }
+         
+          while(!s.empty() && a[s.top()]<=a[t])
+            s.pop();
+            
+          if(s.empty())
+             k= (t+1);
+          else
+             k=(t-s.top());
+          s.push(t);}
+       return k;
+    }
+};
