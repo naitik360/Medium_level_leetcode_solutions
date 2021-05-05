@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> nextLargerNodes(ListNode* head) {
+        vector<int> k;
+        ListNode* t=head;
+        while(t)
+        {
+           k.push_back(t->val);
+           t=t->next;
+        }
+        for(auto i : k)
+           cout<<i<<" ";
+        vector<int> a(k.size(),0);
+        stack<int> s;
+        a[k.size()-1]=0;
+        s.push(k[k.size()-1]);
+        for(int i=k.size()-2;i>=0;i--)
+        {
+          while(s.size() && k[i]>=s.top())
+              s.pop();
+          
+          if(s.size()==0)
+             a[i]=0;
+          else
+             a[i]=s.top();
+          s.push(k[i]);
+        }
+      
+      return a;
+    }
+};
