@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int findMinFibonacciNumbers(int k) {
+       vector<int> a={1, 1};
+    int i=2, count=0;
+    while(true)
+    {
+        a.push_back(a[i-1]+a[i-2]);
+        if(a[i]>=k)
+            break;
+        i++;
+    }
+    for(i=a.size()-1; i>=0; i--)
+    {
+        if(a[i]<=k)
+        {
+            k=k-a[i];
+            count++;
+        }
+        if(k==0)
+        {
+            return count;
+        }
+    }
+    return 0;
+    }
+};
