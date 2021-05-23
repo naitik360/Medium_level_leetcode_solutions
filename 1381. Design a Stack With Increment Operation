@@ -1,0 +1,38 @@
+class CustomStack {
+public:
+   int t=-1,sz;
+   int a[1000];
+    CustomStack(int maxSize) {
+        sz=maxSize;
+    }
+   
+    void push(int x) {
+       t++;
+       if(t==sz)
+       {t--;return ;}
+       else
+       {
+         a[t]=x;
+       }
+    }
+    
+    int pop() {
+        int ans=-1;
+        if(t == -1)
+           return ans;
+        else
+        {
+          ans=a[t];
+          t--;
+        }
+       return ans;
+      
+    }
+    
+    void increment(int k, int val) {
+        for(int i=0;i<min(k,t+1);i++)
+        {
+           a[i]+=val;
+        }
+    }
+};
