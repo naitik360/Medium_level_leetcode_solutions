@@ -1,0 +1,29 @@
+class Solution {
+public:
+     vector<vector<int>> v;
+    void find(vector<vector<int>>& g,int s,int d,vector<int> k)
+    {
+        if(s==d)
+        {
+            v.push_back(k);
+            return ;
+        }
+        else
+        {
+            for(auto i : g[s])
+            {
+                k.push_back(i);
+                find(g,i,d,k);
+                k.pop_back();
+            }
+        }
+    }
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& g) {
+        int s=0,d=g.size()-1;
+        vector<int> k;
+        k.push_back(0);
+        find(g,s,d,k);
+        return v;
+    }
+};
+
