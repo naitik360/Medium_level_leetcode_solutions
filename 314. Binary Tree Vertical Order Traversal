@@ -1,0 +1,36 @@
+
+class Solution {
+public:
+    void find(TreeNode* root,map<int,vector<pair<int,int>>> &m,int level,int index)
+    {
+        if(root==NULL)
+            return;
+        cout<<index<<" "<<level<<" "<<root->val<<"  *\n";
+       // m[index].push_back({level,root->val});
+        find(root->left,m,level+1,index-1);
+         m[index].push_back({level,root->val});
+        find(root->right,m,level+1,index+1);
+    }
+    vector<vector<int>> verticalOrder(TreeNode* root) {
+        map<int,vector<pair<int,int>>> m;
+        vector<vector<int>> ans;
+        int level=0,index=0;
+        find(root,m,level,index);
+        
+        for(auto i : m)
+        {
+            vector<pair<int,int>> V=i.second;
+             sort(V.begin(), V.end(), [](pair<int,int> a, pair<int,int> b) {
+               return (a.first<b.first);
+           });
+            vector<int> k;
+            for(int j=0;j<V.size();j++)
+            {
+                k.push_back(V[j].second);
+            }
+            
+            ans.push_back(k);
+        }
+      return ans;
+    }
+};
