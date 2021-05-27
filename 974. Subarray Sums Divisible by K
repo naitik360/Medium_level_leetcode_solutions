@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int cmb(int t)
+    {
+             if(t>=2)
+             return ((t-1)*t)/2;
+            else
+                return 0;
+    }
+    int subarraysDivByK(vector<int>& v, int k) {
+        unordered_map<int,int> m;
+        int s=0,t=0;
+        m[0]=1;
+        
+        for(int i=0;i<v.size();i++)
+        {
+            s=s+v[i];
+            
+            int r=((s%k)+k)%k;
+            
+            m[r]++;
+        }
+        
+        for(auto i : m)
+        {
+            t=t+cmb(i.second);
+        }
+        
+      return t;
+        
+    }
+};
