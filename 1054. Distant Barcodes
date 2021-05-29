@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> rearrangeBarcodes(vector<int>& a) {
+        vector<int> v;
+        
+        priority_queue<pair<int,int>> q;
+        
+        unordered_map<int,int> m;
+        
+        for(auto i : a)
+              m[i]++;
+     
+        for(auto i : m)
+             q.push({i.second,i.first});
+        
+ 
+        while(q.size()>1)
+        {
+            pair<int,int> p1=q.top();
+            q.pop();
+            
+            pair<int,int> p2=q.top();
+            q.pop();
+            
+            v.push_back(p1.second);
+            p1.first--;
+          //  cout<<"*1 "<<p1.second<<" "<<p1.first<<"\n";
+            v.push_back(p2.second);
+            p2.first--;
+          //  cout<<"*2 "<<p2.second<<" "<<p2.first<<"\n";
+            if(p1.first>0)
+                 q.push({p1.first,p1.second});
+            if(p2.first>0)
+                 q.push({p2.first,p2.second});
+            
+        }
+        
+        if(q.size()==1)
+        {
+            v.push_back(q.top().second);
+        }
+        
+      return v;
+    }
+};
