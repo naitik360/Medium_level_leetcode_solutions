@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string maxValue(string s, int x) {
+        string t;
+        int i;
+        if (s[0]=='-') {
+            t.push_back('-');
+            for (i=1; i<s.size(); i++) {
+                if (s[i]-'0' > x) break;
+                t.push_back(s[i]);
+            }
+        }
+        else {
+            for (i=0; i<s.size(); i++) {
+                if (s[i]-'0' < x) break;
+                t.push_back(s[i]);
+            }
+        }
+        t.push_back(x+'0');
+        for (; i<s.size(); i++) t.push_back(s[i]);
+        return t;
+    }
+};
