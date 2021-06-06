@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int twoEggDrop(int k) {
+        int n=2;
+        int dp[n+1][k+1];
+        for(int i=0;i<=n;i++)
+        {
+            for(int j=0;j<=k;j++)
+            {
+                dp[i][j]=0;
+            }
+        }
+        
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=k;j++)
+            {
+                if(j==1)
+                     dp[i][j]=1;
+                else if(i==1)
+                     dp[i][j]=j;
+                else
+                {
+                    int mn = INT_MAX;
+                    for(int t=j-1,y=0;t>=0;t--,y++)
+                    {
+                        int v1 = dp[i][t];
+                        int v2 = dp[i-1][y];
+                        int val = max(v1,v2);
+                        mn=min(val,mn);
+                    }
+                    
+                    dp[i][j]=mn+1;
+                }
+            }
+        }
+      return dp[n][k];
+    }
+};
