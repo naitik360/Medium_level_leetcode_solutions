@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    void find(TreeNode* root,vector<string> &v,string s)
+    {
+        if(!root)
+             return;
+        s=s+to_string(root->val);
+        if(root->left==NULL && root->right==NULL)
+        {
+            v.push_back(s);
+          //  cout<<s<<"\n";
+        }
+        find(root->left,v,s);
+        find(root->right,v,s);
+    }
+    
+    bool isValidSequence(TreeNode* root, vector<int>& k) {
+        vector<string> v;
+        string s,t="";
+      //  cout<<root->val+1;
+        find(root,v,s);
+        for(auto i : k)
+             t=t+to_string(i);
+        bool ok=0;
+        for(auto i : v)
+        {
+            if(i==t)
+            {
+                ok=1;
+                break;
+            }
+        }
+        
+        return ok;
+    }
+    
+};
