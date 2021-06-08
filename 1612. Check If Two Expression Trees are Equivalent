@@ -1,0 +1,21 @@
+void find(Node* root,string &s)
+{
+    if(root==NULL)
+         return ;
+    
+    s=s+string(1,root->val);
+    find(root->left,s);
+    find(root->right,s);
+    
+}
+class Solution {
+public:
+    bool checkEquivalence(Node* root1, Node* root2) {
+        string s1,s2;
+        find(root1,s1);
+        find(root2,s2);
+        sort(s1.begin(),s1.end());
+        sort(s2.begin(),s2.end());
+        return (s1==s2);
+    }
+};
