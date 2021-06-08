@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void find(TreeNode* root,vector<string> &k, string t)
+    {
+        if(!root)
+             return ;
+        t=t+to_string(root->val);
+        if(root->left==NULL && root->right==NULL)
+        {
+            k.push_back(t);
+        }
+        find(root->left,k,t);
+        find(root->right,k,t);
+    }
+    bool isSubPath(ListNode* head, TreeNode* root) {
+        string s="",t="";
+        while(head)
+        {
+            s=s+to_string(head->val);
+            head=head->next;
+        }
+        cout<<s<<"\n";
+        vector<string> k;
+        find(root,k,t);
+        for(auto i : k)
+        {   
+            cout<<i<<" ";
+            //size_t f = s.find(str2);
+            if(i.find(s)!=string::npos)
+                 return 1;
+            
+        }
+      return 0;
+    }
+};
