@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int find(TreeNode* root,int &t)
+{
+    if(!root)
+      return INT_MIN;
+    
+    int l = find(root->left,t);
+    int r = find(root->right,t);
+    if(l==1e9+7 || r==1e9+7)
+      return 1e9+7;
+    if(root->left==NULL && root->right==NULL)
+      t++;
+    else if(root->left==NULL && root->right!=NULL)
+    {
+        if(r==root->val)
+          t++;
+        else
+          return 1e9+7;
+    }
+    else if(root->left!=NULL && root->right==NULL)
+    {
+        if(l==root->val)
+          t++;
+        else
+          return 1e9+7;
+    }
+    else if(root->left!=NULL && root->right!=NULL)
+    {
+        if(r==root->val && r==l)
+          t++;
+        else
+          return 1e9+7;
+    }
+
+    return root->val;
+}
+    int countUnivalSubtrees(TreeNode* root) {
+        if(!root)
+      return 0;
+    int t=0;
+    find(root,t);
+    return t; 
+    }
+};
