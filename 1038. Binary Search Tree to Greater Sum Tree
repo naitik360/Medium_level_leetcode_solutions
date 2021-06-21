@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void find(TreeNode* root,int &s)
+    {
+        if(!root)
+              return ;
+        find(root->right,s);
+        s=s+root->val;
+        root->val=s;
+        find(root->left,s);
+    }
+    TreeNode* bstToGst(TreeNode* root) {
+        int s=0;
+        find(root,s);
+        return root;
+    }
+};
