@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isBST(TreeNode* root, TreeNode* l, TreeNode* r)
+{
+
+    if (root == NULL)
+        return true;
+ 
+    if (l != NULL and root->val <= l->val)
+        return false;
+ 
+    if (r != NULL and root->val >= r->val)
+        return false;
+ 
+
+    return isBST(root->left, l, root) and
+           isBST(root->right, root, r);
+}
+    bool isValidBST(TreeNode* root) {
+        TreeNode* l=NULL, *r=NULL;
+        return isBST(root,l,r);
+    }
+};
