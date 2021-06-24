@@ -1,0 +1,21 @@
+class Solution {
+public:
+    pair<int,int> find(TreeNode* root,double &mxavg)
+    {
+        if(!root)
+             return {0,0};
+        
+        pair<int,int> l = find(root->left,mxavg);
+        pair<int,int> r = find(root->right,mxavg);
+        int s = l.first  +  r.first + root->val;
+        int nodes = l.second+r.second+1;
+        double avg = double(s)/double(nodes);
+        mxavg=max(mxavg,avg);
+      return {s,nodes};
+    }
+    double maximumAverageSubtree(TreeNode* root) {
+        double mxavg=0.0;
+        find(root,mxavg);
+        return mxavg;
+    }
+};
