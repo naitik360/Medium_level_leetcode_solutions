@@ -1,0 +1,33 @@
+class FirstUnique {
+public:
+    unordered_map<int,int> m;
+    queue<int> q;
+    FirstUnique(vector<int>& v) {
+        for(auto i : v)
+        {m[i]++;q.push(i);}
+    }
+    
+    int showFirstUnique() {
+        if(m[q.front()]==1)
+            return q.front();
+        else
+        {  
+            int t=q.size();
+            while(m[q.front()]>1 && t)
+            {
+                q.pop();
+                t--;
+            }
+            
+            if(q.size() && m[q.front()]==1)
+                 return q.front();
+            else
+                 return -1;
+        }
+    }
+    
+    void add(int value) {
+        q.push(value);
+        m[value]++;
+    }
+};
