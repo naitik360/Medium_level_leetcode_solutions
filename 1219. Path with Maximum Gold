@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int ANS=0;
+    void find(vector<vector<int>> &v,int i,int j,int c)
+    {
+        if(i<0 || j<0 || i>=v.size() || j>=v[0].size() || v[i][j]==0 )
+           return ;
+        
+        int t=v[i][j];
+        c=c+v[i][j];
+        v[i][j]=0;
+        ANS=max(c,ANS);
+        find(v,i-1,j,c);
+        find(v,i,j+1,c);
+        find(v,i+1,j,c);
+        find(v,i,j-1,c);
+        v[i][j]=t; //making mistake in this part 
+    }
+    int getMaximumGold(vector<vector<int>> &v) {
+        int c=0;
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=0;j<v[0].size();j++)
+            {
+                if(v[i][j])
+                {
+                    c=0;
+                    find(v,i,j,c);
+                }
+            }
+        }
+       return ANS;
+    }
+};
