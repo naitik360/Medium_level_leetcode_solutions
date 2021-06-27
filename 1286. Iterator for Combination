@@ -1,0 +1,52 @@
+class CombinationIterator {
+public:
+    vector<string> ans;
+    int index=0;
+    CombinationIterator(string s, int n) {
+        
+        vector<string> z = find(s);
+        for(auto i : z)
+        {
+            if(i.size()==n)
+                 ans.push_back(i);
+        }
+        
+        sort(ans.begin(),ans.end());
+        
+        for(auto u : ans)
+             cout<<u<<" ";      
+    }
+    
+    vector<string> find(string s)
+    {
+        if(s.size()==0)
+        {
+            vector<string> w;
+            w.push_back("");
+            return w;
+        }
+        vector<string> k = find(s.substr(1));
+        vector<string> v;
+        for(auto i : k)
+           v.push_back(s[0]+i);
+        
+        for(auto i : k)
+          v.push_back(i+"");
+      return v;
+    }
+    
+    string next() {
+        string e=ans[index];
+        index++;
+       return e;
+             
+    }
+    
+    bool hasNext() {
+    //index++;
+         if(index<ans.size())
+              return 1;
+         else
+              return 0;
+    }
+};
