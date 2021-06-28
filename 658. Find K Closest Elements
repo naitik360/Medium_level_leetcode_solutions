@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& v, int k, int x) {
+        vector<pair<int,int>> q;
+        
+        for(auto &i : v)
+             q.push_back({abs(x-i),i});
+        
+        sort(q.begin(),q.end());
+        v.clear();
+        int i=0;
+        while(k)
+        {
+            v.push_back(q[i].second);
+            i++;
+            k--;
+        }
+      sort(v.begin(),v.end());
+      return v;
+    }
+};
