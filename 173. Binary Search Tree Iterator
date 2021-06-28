@@ -1,0 +1,28 @@
+class BSTIterator {
+public:
+    vector<int> v;
+    int i=0;
+    BSTIterator(TreeNode* root) {
+        find(root);
+    }
+    void find(TreeNode* root)
+    {
+        if(!root)
+             return ;
+        find(root->left);
+        v.push_back(root->val);
+        find(root->right);
+    }
+    int next() {
+        int t = v[i];
+         i++;
+        return t;
+    }
+    
+    bool hasNext() {
+        if(i<v.size())
+            return 1;
+        else
+             return 0;
+    }
+};
