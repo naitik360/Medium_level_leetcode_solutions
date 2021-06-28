@@ -1,0 +1,24 @@
+class Vector2D {
+public:
+    int ind=0;
+    vector<int> v;
+    Vector2D(vector<vector<int>>& k) {
+        for(auto i : k)
+        {
+            for(auto j : i)
+                 v.push_back(j);
+        }
+    }
+    
+    int next() {
+        int t=v[ind];
+        ind++;
+        return t;
+    }
+    
+    bool hasNext() {
+        if(ind<v.size())
+             return 1;
+        return 0;
+    }
+};
