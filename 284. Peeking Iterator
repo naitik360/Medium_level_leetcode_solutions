@@ -1,0 +1,24 @@
+class PeekingIterator : public Iterator {
+public:
+    queue<int> q;
+	PeekingIterator(const vector<int>& nums) : Iterator(nums) {
+	    for(auto &i : nums)
+             q.push(i);
+	}
+	
+	int peek() {
+        return q.front();
+	}
+	
+	int next() {
+	    int t=q.front();
+        q.pop();
+        return t;
+	}
+	
+	bool hasNext() const {
+	    if(q.size())
+             return 1;
+        return 0;
+	}
+};
