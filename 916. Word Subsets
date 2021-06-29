@@ -1,0 +1,54 @@
+class Solution {
+public:
+    vector<string> wordSubsets(vector<string>& v1, vector<string>& v2) {
+        unordered_map<char,int> m1,m2;
+        vector<string> ans;
+        for(auto i : v2)
+        {
+            for(auto j : i)
+            {
+                m2[j]++;
+            }
+            
+            for(auto t : m2)
+            {
+                if(m1.find(t.first)!=m1.end())
+                    m1[t.first]=max(t.second,m1[t.first]);
+                else
+                    m1[t.first]=t.second;
+            }
+            m2.clear();
+        } 
+        
+        for(auto i : m1)
+             cout<<i.first<<" "<<i.second<<"\n";
+      m2.clear();
+        
+        for(auto i : v1)
+        {
+            for(auto j : i)
+            {
+                m2[j]++;
+            }
+            
+            bool ok=1;
+            for(auto t : m1)
+            {
+                if(m2.find(t.first)!=m2.end())
+                {
+                    if(t.second>m2[t.first])
+                    {ok=0;break;}
+                }
+                else
+                {
+                    ok=0;
+                    break;
+                }
+            }
+            m2.clear();
+            if(ok)
+                 ans.push_back(i);
+        }
+      return ans;
+    }
+};
