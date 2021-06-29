@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool differByOne(vector<string>& v) {
+        set<string> s;
+        for(auto i : v)
+        {
+            for(int j=0;j<i.size();j++)
+            {
+                string k = i;
+                k[j]='#';
+                if(s.count(k))
+                    return 1;
+                else
+                    s.insert(k);
+            }
+        }
+      return 0;
+    }
+};
+
+
