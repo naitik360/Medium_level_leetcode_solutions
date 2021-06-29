@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int connectSticks(vector<int>& v) {
+         priority_queue<int, vector<int>, greater<int> > q(v.begin(),v.end());
+        
+         int s=0;
+         while(q.size()>=2)
+         {
+             int t = q.top();
+             q.pop();
+             int k = q.top();
+             q.pop();
+             s=s+(t+k);
+             q.push(k+t);
+         }
+       return s;
+    }
+};
