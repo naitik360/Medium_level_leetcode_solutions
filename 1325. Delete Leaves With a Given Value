@@ -1,0 +1,19 @@
+
+class Solution {
+public:
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+        if(!root)
+             return root;
+        
+        TreeNode* lft = removeLeafNodes(root->left,target);
+        TreeNode* rght = removeLeafNodes(root->right,target);
+        root->left=lft;
+        root->right=rght;
+        if(root->val==target && root->left==NULL && root->right==NULL)
+        {
+            return NULL;
+        }
+        
+        return root;
+    }
+};
