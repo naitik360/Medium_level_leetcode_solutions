@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int largestBSTSubtree(TreeNode* root) {
+        if(!root)
+             return 0;
+        if(isBST(root,INT_MIN,INT_MAX))
+              return count(root);
+        else
+            return max(largestBSTSubtree(root->left),largestBSTSubtree(root->right));
+    }
+    
+    bool isBST(TreeNode* root,int mn,int mx)
+    {
+        if(!root)
+             return 1;
+        if(root->val <=mn || root->val>=mx)
+            return 0;
+        return isBST(root->left,mn,root->val) && isBST(root->right,root->val,mx);
+    }
+    
+    int count(TreeNode* root)
+    {
+        if(!root)
+            return 0;
+        return 1+count(root->left)+count(root->right);
+    }
+};
