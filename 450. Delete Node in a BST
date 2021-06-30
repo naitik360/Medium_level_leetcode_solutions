@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int find(TreeNode* root)
+    {
+        while(root && root->right!=NULL)
+          root=root->right;
+        return root->val;
+    }
+    TreeNode* remove(TreeNode* root,int key)
+    {
+        if(!root)
+            return root;
+        if(root->val>key)
+            root->left=remove(root->left,key);
+        else if(root->val<key)
+            root->right=remove(root->right,key);
+        else if(root->val==key)
+        {   
+             if(root->left==NULL && root->right==NULL)
+                return NULL;
+             else if(root->left==NULL)
+                return root->right;
+             else if(root->right==NULL)
+                 return root->left;
+             else if(root->left && root->right)
+             {
+                 int t=find(root->left);
+                 root->val=t;
+                 root->left=remove(root->left,t);       
+             }
+        }
+      return root;
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) {
+         if(!root)
+             return NULL;
+         return  remove(root,key);
+        
+    }
+};
