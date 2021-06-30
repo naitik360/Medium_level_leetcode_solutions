@@ -1,0 +1,29 @@
+
+class Solution {
+public:
+    TreeNode* find(vector<int> &v,int l,int h)
+    {   
+        if(l>h)
+             return NULL;
+        int m=(l+h)/2;
+        TreeNode* root=new TreeNode(v[m]);
+        root->left=find(v,l,m-1);
+        root->right=find(v,m+1,h);
+        return root;
+    }
+    void fn(TreeNode* root,vector<int> &v)
+    {
+        if(!root)
+            return ;
+        fn(root->left,v);
+        v.push_back(root->val);
+        fn(root->right,v);
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        if(!root)
+             return root;
+        vector<int> v;
+        fn(root,v);
+        return find(v,0,v.size()-1);
+    }
+};
