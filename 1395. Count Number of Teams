@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int numTeams(vector<int>& v) {
+        int ans=0,n=v.size();
+        for(int i=0;i<n;i++)
+        {
+            int mnlft=0,mxlft=0,mnrght=0,mxrght=0;
+            for(int j=0;j<i;j++)
+            {
+                if(v[j]<v[i])
+                    mnlft++;
+                else
+                    mxlft++;
+            }
+            
+            for(int j=i+1;j<n;j++)
+            {
+                if(v[j]<v[i])
+                    mnrght++;
+                else
+                    mxrght++;
+            }
+            
+          ans=ans+mnlft*mxrght+mxlft*mnrght;
+            
+        }
+       return ans;
+    }
+};
