@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<TreeNode*> find(int l,int h)
+    {   vector<TreeNode*> v;
+        if(l>h)
+        {
+            v.push_back(NULL);
+        }
+        
+        for(int i=l;i<=h;i++)
+        {
+            vector<TreeNode*> lft = find(l,i-1);
+            vector<TreeNode*> rgt = find(i+1,h);
+            
+            for(auto t : lft)
+            {
+                for(auto e : rgt)
+                {
+                    TreeNode* k = new TreeNode(i);
+                    k->left=t;
+                    k->right=e;
+                    v.push_back(k);
+                }
+            }
+        }
+      return v;
+    }
+    vector<TreeNode*> generateTrees(int n) {
+          if(n==0)
+               return {NULL};
+          else
+              return find(1,n);
+    }
+};
