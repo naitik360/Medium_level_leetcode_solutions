@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findLeastNumOfUniqueInts(vector<int>& v, int k) {
+        unordered_map<int,int> m;
+        for(auto i : v)
+            m[i]++;
+        
+        priority_queue<int,vector<int>,greater<int>> q;
+        
+        for(auto i : m)
+             q.push(i.second);
+        
+        while(q.size() && k)
+        {
+            int t1=q.top();
+            q.pop();
+            if(t1==k)
+            {
+                k=0;
+                break;
+            }
+            else if(t1>k)
+            {
+                t1=t1-k;
+                k=0;
+                q.push(t1);
+            }
+            else
+            {
+                k=k-t1;
+            }
+        }
+      return q.size();
+    }
+};
