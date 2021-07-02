@@ -1,0 +1,33 @@
+class Leaderboard {
+public:
+    unordered_map<int,int> m;
+    Leaderboard() {
+        
+    }
+    
+    void addScore(int playerId, int score) {
+        m[playerId]+=score;
+    }
+    
+    int top(int K) {
+        priority_queue<int,vector<int>,greater<int>> q;
+        for(auto i : m)
+        {
+            q.push(i.second);
+            if(q.size()>K)
+                 q.pop();
+        }
+        int t=0;
+        while(q.size())
+        {
+            t=t+q.top();
+            q.pop();
+        }
+        return t;
+    }
+    
+    void reset(int playerId) {
+        m[playerId]=0;
+    }
+};
+
