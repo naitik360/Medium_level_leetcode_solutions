@@ -1,0 +1,29 @@
+int t;
+bool cmp(int &a,int &b)
+{
+    if(abs(t-a)==abs(t-b))
+         return a>b;
+    else
+         return abs(t-a)>abs(t-b);
+}
+class Solution {
+public:
+    
+    vector<int> getStrongest(vector<int>& v, int k) {
+        sort(v.begin(),v.end());
+        
+        
+        int m=(v.size()-1)/2;
+        
+        t=v[m];
+        
+        sort(v.begin(),v.end(),cmp);
+        
+        vector<int> ans;
+        
+        for(int i=0;i<k;i++)
+            ans.push_back(v[i]);
+        
+        return ans;
+    }
+};
