@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int minDeletions(string s) {
+        unordered_map<char,int> m;
+        unordered_set<int> k;
+        int ans=0;
+        for(auto i : s)
+             m[i]++;
+        vector<int> v;
+        for(auto i : m)
+          v.push_back(i.second);
+        
+        sort(v.begin(),v.end(),greater<int>());
+        
+        for(int i=0;i<v.size();i++)
+        {   
+            
+            if(k.find(v[i])==k.end())
+              k.insert(v[i]);
+            else
+            {
+                int t=v[i];
+                ans++;
+                t=t-1;
+                while(k.find(t)!=k.end() && t!=0)  
+                {
+                    t--;
+                    ans++;
+                }
+                k.insert(t);
+            }
+        }
+      return ans;    
+    }
+};
