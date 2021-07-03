@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string arrangeWords(string s) {
+       stringstream ss(s);
+        string w="",ans="";
+        int t=0;
+        vector<tuple<int,int,string>> v;
+        while(ss>>w)
+        {   
+            if(w[0]>='A' && w[0]<='Z')
+              w[0]=tolower(w[0]);
+            v.push_back(make_tuple(w.size(),t,w));
+            t++;
+        }
+        
+        sort(v.begin(),v.end());
+        
+        for(int i=0;i<v.size();i++)
+        {
+            ans+=get<2>(v[i])+" ";
+        }
+         
+        ans.pop_back();
+       
+        if(ans[0]>='a' && ans[0]<='z')
+            ans[0]=toupper(ans[0]);
+        
+         return ans;
+    }
+};
