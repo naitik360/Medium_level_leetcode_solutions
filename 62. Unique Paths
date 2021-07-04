@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int dp[101][101];
+    int find(int n,int m)
+    {
+        if(m==1 && n==1)
+             return 1;
+        else if(m<=0 || n<=0)
+            return 0;
+        
+        if(dp[n][m]!=-1)
+            return dp[n][m];
+        
+        int v1=find(n-1,m);
+        int v2=find(n,m-1);
+        dp[n][m]=v1+v2;
+        return dp[n][m];
+    }
+    int uniquePaths(int m, int n) {
+        memset(dp,-1,sizeof(dp));
+        swap(n,m);
+        return find(n,m);
+        //return dp[n][m];
+    }
+};
