@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& v) {
+        int r=v.size(),c=v[0].size();
+        int dp[r][c];
+        
+        for(int i=0;i<c;i++)
+             dp[r-1][i]=v[r-1][i];
+        
+        for(int i=r-2;i>=0;i--)
+        {
+            for(int j=0;j<c;j++)
+            {
+                int d = dp[i+1][j];
+                int dr = (j==c-1) ? INT_MAX : dp[i+1][j+1];
+                int dl =  (j==0) ? INT_MAX : dp[i+1][j-1];
+                dp[i][j]=v[i][j]+min({d,dr,dl});
+            }
+        }
+        
+        int ans=INT_MAX;
+        
+        for(int i=0;i<c;i++)
+             ans=min(ans,dp[0][i]);
+        
+        return ans;
+    }
+};
