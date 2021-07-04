@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int find(int d,int f,int t,map<pair<int,int>,int>& m)
+    {
+        if(t==0 && d==0)
+            return 1;
+        else if(t<0 || d<=0)
+             return 0;
+        
+        
+        if(m.find({d,t})!=m.end())
+            return m[{d,t}];
+        
+        long long int a=0;
+        
+        for(int i=1;i<=f;i++)
+        {
+            if(m.find({d,t-i})!=m.end())
+                a=a+m[{d,t-i}];
+            else
+                a=a+find(d-1,f,t-i,m)%1000000007;
+        }
+        
+      m[{d,t}]=a%1000000007;
+      return  m[{d,t}];
+    }
+    int numRollsToTarget(int d, int f, int t) {
+        map<pair<int,int>,int> m;
+        find(d,f,t,m);
+        return m[{d,t}]%1000000007;
+    }
+};
