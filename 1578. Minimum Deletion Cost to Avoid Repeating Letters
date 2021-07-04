@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int minCost(string s, vector<int>& v) {
+        stack<char> k;
+        int ans=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(k.empty())
+                k.push(s[i]);
+            else if(k.top()==s[i])
+            {   
+                int t=max(v[i],v[i-1]),r=0;
+                r=r+v[i]+v[i-1];
+                i++;
+                while(i<s.size() && s[i]==k.top())
+                {
+                    t=max(t,v[i]);
+                    r=r+v[i];
+                    i++;
+                }
+               ans=ans+(r-t);
+                i--;
+            }
+            else
+                k.push(s[i]);
+        }
+      return ans;
+    }
+};
