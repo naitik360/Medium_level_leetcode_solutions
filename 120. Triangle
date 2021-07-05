@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int find(vector<vector<int>> &v,vector<vector<int>> &dp,int index,int row)
+    {
+        if(row==v.size())
+        {   
+            return 0;
+        }
+        
+        if(dp[row][index]!=INT_MAX)
+            return dp[row][index];
+        
+        dp[row][index] = v[row][index] + min(find(v,dp,index+1,row+1),find(v,dp,index,row+1));
+        return dp[row][index];
+    }
+    int minimumTotal(vector<vector<int>>& v) {
+        
+        vector<vector<int>> dp=v;
+        
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=0;j<v[i].size();j++)
+            {
+                dp[i][j]=INT_MAX;
+            }
+        }
+        
+     
+        return find(v,dp,0,0);    
+    }
+};
