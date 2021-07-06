@@ -1,0 +1,28 @@
+class UndergroundSystem {
+public:
+    unordered_map<int,pair<string,int>> m1;
+    map<pair<string,string>,pair<int,int>> m2;
+    UndergroundSystem() {
+        
+    }
+    
+    void checkIn(int id, string stationName, int t) {
+        m1[id]={stationName,t};
+    }
+    
+    void checkOut(int id, string stationName, int t) {
+        if(m2.find({m1[id].first, stationName})!=m2.end())
+        {
+            int k = m2[{m1[id].first, stationName}].first;
+            int c= m2[{m1[id].first, stationName}].second;
+            k=k+(t-m1[id].second);
+            m2[{m1[id].first, stationName}]={k,c+1};
+        }
+        else
+            m2[{m1[id].first, stationName}]={(t-m1[id].second),1};
+    }
+    
+    double getAverageTime(string startStation, string endStation) {
+        return  double(m2[{startStation, endStation}].first)/double(m2[{startStation, endStation}].second);
+    }
+};
