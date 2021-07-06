@@ -1,0 +1,79 @@
+class TicTacToe {
+public:
+    vector<vector<int>> v;
+    int p1=0,p2=0;
+    TicTacToe(int n) {
+        for(int i=0;i<n;i++)
+        {   
+            vector<int> k;
+            for(int j=0;j<n;j++)
+            {
+                k.push_back(0);
+            }
+            v.push_back(k);
+        }
+    }
+    
+    int move(int r, int c, int p) {
+        if(p==1)
+            p1++;
+        else
+            p2++;
+        
+        v[r][c] = (p==1) ? 1 : 2;
+        
+        if(p1>=v.size() || p2>=v.size())
+        {   
+            if(check(r,c,v,p))
+                return p;
+            else
+                return 0;
+        }
+        else
+            return 0;
+    }
+    
+    bool check(int r,int c,vector<vector<int>> &v,int p)
+    {   
+        int t=0;
+        for(int i=0;i<v.size();i++)
+        {
+            if(v[i][c]==p)
+                t++;
+        }
+        if(t==v.size())
+        return 1;
+        
+        t=0;
+        
+        for(int i=0;i<v.size();i++)
+        {
+            if(v[r][i]==p)
+                t++;
+        }
+        if(t==v.size())
+            return 1;
+        
+        t=0;
+        
+        for(int i=0;i<v.size();i++)
+        {
+            if(v[i][i]==p)
+                t++;
+        }
+        if(t==v.size())
+        return 1;
+        
+        t=0;
+        
+        for(int i=0;i<v.size();i++)
+        {
+            if(v[i][v.size()-i-1]==p)
+                t++;
+        }
+        if(t==v.size())
+            return 1;
+        
+      return 0;      
+    }
+};
