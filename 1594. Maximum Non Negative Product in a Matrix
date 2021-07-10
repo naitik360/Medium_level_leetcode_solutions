@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxProductPath(vector<vector<int>>& v) {
+        int r=v.size(),c=v[0].size();
+        long int dp[r+1][c+1];
+        long int dpm[r+1][c+1];          //take long long bro 
+        dpm[r-1][c-1]=dp[r-1][c-1]=v[r-1][c-1];
+        
+        for(int i=r-2;i>=0;i--)
+             dpm[i][c-1]=dp[i][c-1]=dp[i+1][c-1]*v[i][c-1];
+        
+        for(int i=c-2;i>=0;i--)
+            dpm[r-1][i]=dp[r-1][i]=dp[r-1][i+1]*v[r-1][i];
+        
+        for(int i=r-2;i>=0;i--)
+        {
+            for(int j=c-2;j>=0;j--)
+            {
+                long int rmx=dp[i][j+1]*v[i][j];
+                long int rmn=dpm[i][j+1]*v[i][j];
+                long int dmx=dp[i+1][j]*v[i][j];
+                long int dmn=dpm[i+1][j]*v[i][j];
+                dp[i][j]=max({rmx,rmn,dmx,dmn});
+                dpm[i][j]=min({rmx,rmn,dmx,dmn}); 
+            }
+        }
+       
+       int t=dp[0][0]%1000000007;
+       return (t>=0) ? t : -1;
+        
+    }
+};
