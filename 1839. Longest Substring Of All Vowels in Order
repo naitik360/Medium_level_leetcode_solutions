@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int longestBeautifulSubstring(string w) {
+        stack<char> s;
+        int ans=0; 
+        for(auto i : w)
+        {
+            if(s.empty())
+            {
+                if(i=='a')
+                     s.push(i);
+            }
+            else
+            {
+                char k = s.top();
+                if(k=='a' && (i=='a' || i=='e'))
+                    s.push(i);
+                
+                else if(k=='e' && (i=='e' || i=='i'))
+                    s.push(i);
+                
+                else if(k=='i' && (i=='i' || i=='o'))
+                    s.push(i);
+                
+                else if(k=='o' && (i=='o' || i=='u'))
+                {   
+                    s.push(i);
+                    if(i=='u')
+                    {
+                        int t=s.size();
+                        ans=max(ans,t);
+                    }
+                  
+                } 
+                else if(k=='u' && i=='u')
+                {
+                     s.push(i);
+                     int t=s.size();
+                     ans=max(ans,t);
+                }
+                else
+                {
+                    while(!s.empty())
+                         s.pop();
+                    
+                    if(i=='a')
+                         s.push(i);
+                } 
+            }
+        }
+      return ans;
+    }
+};
