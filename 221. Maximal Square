@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& v) {
+        int n=v.size(),m=v[0].size();
+        int dp[n][m];
+        memset(dp,0,sizeof(dp));
+        int ans=0;
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int j=m-1;j>=0;j--)
+            {   
+                dp[i][j]=0;
+                if(i==n-1 && j==m-1)
+                  dp[i][j]=v[i][j]-'0';
+                else if(i==n-1)
+                  dp[i][j]=v[i][j]-'0';
+                else if(j==m-1)
+                  dp[i][j]=v[i][j]-'0';
+                else
+                {
+                    if(v[i][j]=='1')
+                    {
+                        int r=dp[i][j+1];
+                        int d=dp[i+1][j];
+                        int dia=dp[i+1][j+1];
+                        int mn=min(r,d);
+                        int mn2=min(mn,dia);
+                        dp[i][j]=mn2+1;
+                    }
+                    else
+                        dp[i][j]=0;
+                }
+                ans=max(ans,dp[i][j]);
+            }
+        }
+      return ans*ans;
+    }
+};
