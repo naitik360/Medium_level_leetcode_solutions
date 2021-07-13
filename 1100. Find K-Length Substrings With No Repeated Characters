@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int numKLenSubstrNoRepeats(string s, int k) {
+        if(s.size()<k)
+             return 0;
+        vector<int> v(26,0);
+        int t=0,d=0;
+        for(int i=0;i<k;i++)
+        {
+            v[s[i]-'a']++;
+            if(v[s[i]-'a']==1)
+                  d++;
+        }
+        
+        if(d==k)
+             t++;
+        
+        for(int i=k;i<s.size();i++)
+        {
+            v[s[i-k]-'a']--;
+            if(v[s[i-k]-'a']==0)
+                d--;
+            
+            v[s[i]-'a']++;
+            if(v[s[i]-'a']==1)
+                d++;
+            
+            if(d==k)
+                 t++;
+        }
+      return t;
+    }
+};
