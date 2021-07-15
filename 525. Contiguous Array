@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int findMaxLength(vector<int>& v) {
+        unordered_map<int,int> m;
+        int c=0,ans=0;
+       
+        for(int i=0;i<v.size();i++)
+        {
+            c=c+((v[i]==1) ? 1 : -1);
+            if(c==0)
+                 ans=max(ans,i+1);
+            if(m.find(c)!=m.end())
+                ans=max(ans,i-m[c]);
+            else
+                m[c]=i;
+        }
+      return ans;
+    }
+};
