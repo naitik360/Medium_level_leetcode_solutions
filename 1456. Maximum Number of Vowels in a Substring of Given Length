@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool check(char k)
+    {
+        if(k=='a' || k=='e' || k=='i' || k=='o' || k=='u')
+             return 1;
+        return 0;
+    }
+    int maxVowels(string s, int k) {
+        int c=0,ans=0;
+        for(int i=0;i<k;i++)
+        {
+            if(check(s[i]))
+                 c++;
+        }
+        ans=max(ans,c);
+        for(int i=k;i<s.size();i++)
+        {
+            if(check(s[i-k]))
+                 c--;
+            
+            if(check(s[i]))
+                 c++;
+            
+            ans=max(ans,c);
+        }
+      return ans;
+    }
+};
