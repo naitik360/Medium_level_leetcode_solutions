@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        
+        vector<int> v(3,0);
+        
+        int i=0,j=0,n=s.size(),ans=0;
+        
+        while(j<n)
+        {
+            v[s[j]-'a']++;
+            
+            if(v[0]>=1 && v[1]>=1 && v[2]>=1)
+            {
+                while(v[0]>=1 && v[1]>=1 && v[2]>=1 && i<n && j<n)
+                {
+                    ans=ans+(n-j);
+                    v[s[i]-'a']--; 
+                    i++;      //moving the first index ,this method is similar to 2 pointer
+                }
+            }
+          j++;
+        }
+       return ans; 
+    }
+};
