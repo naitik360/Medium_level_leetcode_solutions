@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& v) {
+        vector<unordered_set<int>> row(9), column(9), grid(9);
+        
+        int n = v.size(), m = v[0].size();
+        for(int i = 0;i<n;i++){
+            for(int j = 0;j<m;j++){
+                if(v[i][j] == '.')
+                    continue;
+                
+                // find the correspoinding grid.i.e. 3*3 box
+                int g = (i / 3) * 3 + j / 3;  
+                
+                int value = v[i][j] - '0';
+                
+                if(row[i].find(value) != row[i].end() || 
+                   column[j].find(value) != column[j].end() || 
+                   grid[g].find(value) != grid[g].end())
+                    return false;
+                
+                // insert.
+                row[i].insert(value);
+                column[j].insert(value);
+                grid[g].insert(value);
+            }
+        }
+        return true;
+    }
+}; // look the second point of note in question ,Read question properly dont pre assume the question 45 min wasted in this way
