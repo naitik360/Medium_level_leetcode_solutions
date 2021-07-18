@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string ans="";
+    void DFS(string s,int n,int k,int i,int &c,string r)
+    {
+        if(s.size()==n)
+        {
+            c++;
+            if(c==k)
+                 ans=s;
+            return ;
+        }
+        for(int j=0;j<3;j++)
+        {
+            if(i==j)
+                 continue;
+            DFS(s+string(1,r[j]),n,k,j,c,r);
+        }
+    }
+    string getHappyString(int n, int k) {
+        string s="abc";
+        int c=0;
+        for(int i=0;i<3;i++)
+        {
+            DFS(string(1,s[i]),n,k,i,c,"abc");
+        }
+      return ans;
+    }
+};
