@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool ok=0;
+    void find(vector<int>& v, int k,int s,int index,int currsum)
+    {
+        if(k==1)
+        {
+            ok=1;
+            return ;
+        }
+        else if(currsum==s)
+        {
+            find(v,k-1,s,0,0);
+            return ;
+        }
+        
+    
+        for(int i=index;i<v.size();i++)
+        {
+            if(v[i]!=0 && v[i]+currsum<=s)
+            {
+                
+                int t=v[i];
+                v[i]=0;
+                find(v,k,s,i+1,currsum+t);
+                v[i]=t;
+            }
+        }
+    }
+    bool canPartitionKSubsets(vector<int>& v, int k) {
+        int s=0;
+        for(auto i : v)
+             s=s+i;
+        
+        if(s%k!=0)
+             return 0;
+       
+        s=s/k;
+        int index=0;
+        find(v,k,s,index,0);
+        return ok;
+    }
+};
