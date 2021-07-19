@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int>>  ans;
+    set<vector<int>> k;
+    void DFS(vector<int> &v,vector<int> a,int index)
+    {
+        if(index==v.size())
+             return ;
+        
+        for(int i=index;i<v.size();i++)
+        {
+            a.push_back(v[i]);
+            if(k.find(a)==k.end())
+            {
+                ans.push_back(a);
+                k.insert(a);     
+            }
+            DFS(v,a,i+1);
+            a.pop_back();
+        }
+    }
+    vector<vector<int>> subsets(vector<int>& v) {
+        for(int i=0;i<v.size();i++)
+        {   
+            vector<int> a;
+            DFS(v,a,i);
+        }
+        ans.push_back({});
+     return ans;
+    }
+};
