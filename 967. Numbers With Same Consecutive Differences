@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> v;
+    void DFS(int i,int n,int k,int prev)
+    {
+        if(n==0)
+        {
+            v.push_back(i);
+            return ;
+        }
+        
+        for(int j=0;j<=9;j++)
+        {
+            int t=abs(prev-j);
+            if(t==k)
+                DFS(i*10+j,n-1,k,j);
+        }
+    }
+    vector<int> numsSameConsecDiff(int n, int k) {
+        for(int i=1;i<=9;i++)
+        {   
+            int prev=i;
+            DFS(i,n-1,k,prev);
+        }
+      return v;
+    }
+};
