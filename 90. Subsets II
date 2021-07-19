@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>>  ans;
+    void DFS(vector<int> &v,vector<int> a,int index)
+    {
+       
+        ans.push_back(a);
+        if(index==v.size())
+             return ;
+        for(int i=index;i<v.size();i++)
+        {   
+            if(i>index && v[i-1]==v[i])  //jaan hai bhai code ka  //pt(1);
+               continue;
+            
+                 a.push_back(v[i]);
+                 DFS(v,a,i+1);
+                 a.pop_back(); 
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& v) {
+        sort(v.begin(),v.end());  // to make in order to so that we  pt(1);
+        vector<int> a;
+        DFS(v,a,0);  
+        return ans;
+    }
+};
