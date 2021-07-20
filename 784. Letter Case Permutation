@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<string> ans;
+    set<string> t;
+    void find(string &s,string k,int j)
+    {   
+        if(t.find(k)==t.end())
+        {
+            ans.push_back(k);
+            t.insert(k);    
+        }
+        if(j==s.size())
+             return ;
+
+        for(int i=j;i<s.size();i++)
+        {
+            if((s[i]>='a' && s[i]<='z'))
+            {   
+                k[i]=toupper(s[i]);
+                find(s,k,i+1);
+                k[i]=tolower(s[i]);
+            }
+            if((s[i]>='A' && s[i]<='Z'))
+            {   
+                k[i]=tolower(s[i]);
+                find(s,k,i+1);
+                k[i]=toupper(s[i]);
+            } 
+        }
+    }
+    vector<string> letterCasePermutation(string s){
+        string k=s;
+        ans.push_back(s);
+        t.insert(s);
+        find(s,k,0);
+        return ans;
+    }
+};
