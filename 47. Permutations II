@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    set<vector<int>> vec;
+    void find(vector<int>& v,set<int> s,vector<int> a)
+    {
+        if(s.size()==v.size() && vec.find(a)==vec.end())
+        {
+            ans.push_back(a);
+            vec.insert(a);
+            return ;
+        }
+        
+        for(int i=0;i<v.size();i++)
+        {
+            if(s.find(i)==s.end())
+            {   
+                s.insert(i);
+                a.push_back(v[i]);
+                find(v,s,a);
+                a.pop_back();
+                s.erase(i);
+            }
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& v){
+        set<int> s;
+        vector<int> a;
+        find(v,s,a);
+        return ans;
+    }
+};
