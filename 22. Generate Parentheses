@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> ans;
+    void find(string s,int l,int r,int n)
+    {   
+        if(r+l==n*2)
+        {
+            ans.push_back(s);
+            return ;
+        }
+       
+        if(l<n)
+          find(s+"(",l+1,r,n);
+
+        if(r<l)
+          find(s+")",l,r+1,n);
+ 
+    }
+    vector<string> generateParenthesis(int n) {
+        string s="";
+        find(s,0,0,n);
+        return ans;
+    }
+};
