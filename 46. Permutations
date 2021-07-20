@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void find(vector<int> &v,set<int> s,vector<int> &a)
+    {
+        if(a.size()==v.size())
+        {
+            ans.push_back(a);
+            return ;
+        }
+  
+        for(int j=0;j<v.size();j++)
+        {
+            if(s.find(j)==s.end())
+            {
+                s.insert(j);
+                a.push_back(v[j]);
+                find(v,s,a);
+                s.erase(j);
+                a.pop_back();
+            }
+        }   
+    }
+    vector<vector<int>> permute(vector<int>& v) {
+        vector<int> a;
+        set<int> s;
+        find(v,s,a);
+        return ans;
+    }
+};
