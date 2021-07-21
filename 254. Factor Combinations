@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void find(int t,int n,vector<int> &v,int k)
+    {   
+        if(t==1)
+        {   
+            ans.push_back(v);
+            return ;
+        }
+        
+            for(int i=k;i<=t;i++) //i=k inorder to avoid getting repeated factors 6=2*3 || 6=3*2
+            {   
+                 if(t%i==0 && i<n)
+                {   
+                   v.push_back(i);
+                   find(t/i,n,v,i);
+                   v.pop_back();  
+                }
+            }   
+    }
+    vector<vector<int>> getFactors(int n) {
+        if(n==1)
+            return {};
+        vector<int> v;
+        find(n,n,v,2);
+        return ans;
+    }
+};
