@@ -1,0 +1,77 @@
+class Solution {
+public:
+    vector<string> ans;
+    set<string> a;
+    void find(string &s,string t,string k,bool ok,set<int> st)
+    {   
+        if(st.size()==s.size())
+        {   
+            string res="";
+            res=res+(t);
+            string res2=res;
+            reverse(res2.begin(),res2.end());
+            if(ok)
+            {
+                res=res+k+res2;
+            }
+            else
+            {
+                res=res+res2;
+            }
+            if(a.find(res)==a.end())
+            {
+                 ans.push_back(res);
+                 a.insert(res);
+            }
+            return ;
+        }
+        for(int i=0;i<s.size();i++)
+        {
+            if(st.find(i)==st.end())
+            {   
+                st.insert(i);
+                find(s,t+string(1,s[i]),k,ok,st);
+                st.erase(i);
+            }
+        }
+    }
+    vector<string> generatePalindromes(string s) {
+        vector<int> v(26,0);
+        for(auto i : s)
+             v[i-'a']++;
+        
+        int t=0;
+        for(auto i : v)
+        {
+            if(i&1)
+                 t++;
+        }
+        
+        if(t>1)
+            return {};
+        else
+        {
+            string s="",k="";
+            bool ok=0;
+            for(int i=0;i<v.size();i++)
+            {
+                if(v[i]%2==0)
+                    s=s+string(v[i]/2,i+'a');
+                else
+                {   
+                    ok=1;
+                    if(v[i]!=1)
+                    {
+                        s=s+string(v[i]/2,i+'a');
+                        k=string(1,i+'a');
+                    }
+                    else
+                        k=string(1,i+'a');
+                }
+            }
+          set<int> st;
+          find(s,"",k,ok,st);
+        }
+      return ans;
+    }
+};
