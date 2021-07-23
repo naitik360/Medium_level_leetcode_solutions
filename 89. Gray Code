@@ -1,0 +1,54 @@
+class Solution {
+public:
+    vector<string> res;
+    int solve(string s)
+    {
+        int t=0;
+      //  cout<<"**";
+        for(int i=s.size()-1;i>=0;i--)
+        {   
+            //cout<<t<<"\n";
+            t=t+(s[i]=='1')*pow(2,s.size()-i-1);
+        }
+      return t;
+    }
+    void find(int n,vector<string> v)
+    {   
+       // cout<<"i\n";
+        if(n==0)
+        {
+            res=v;return ;
+        }
+        vector<string> vec;
+        for(int i=0;i<v.size();i++)
+        {
+            string k=v[i];
+            k="0"+k;
+            vec.push_back(k);
+        }
+      
+        for(int j=v.size()-1;j>=0;j--)
+        {
+            string k=v[j];
+            k="1"+k;
+            vec.push_back(k);
+        }
+        
+        find(n-1,vec);  
+    }
+    vector<int> grayCode(int n){
+        if(n==1)
+             return {0,1};
+        vector<string> v;
+        v.push_back("0");
+        v.push_back("1");
+        vector<int> ans;
+        find(n-1,v);
+        cout<<v.size();
+        for(auto i : res)
+        {
+            ans.push_back(solve(i));
+        }
+        return ans;
+    }
+};
