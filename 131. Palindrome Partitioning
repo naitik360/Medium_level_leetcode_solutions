@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<string>> ans;
+    bool isPalindrome(string s)
+    {  
+        int low=0,high=s.size()-1;
+        while (low < high)
+         {
+            if (s[low] != s[high])
+                return false;
+            low++;
+            high--;
+         }
+       return true;
+    }
+    void find(string s,vector<string> v)
+    {
+        if(s.size()==0)
+        {
+            ans.push_back(v);
+            return ;
+        }
+        
+        for(int i=0;i<s.size();i++)
+        {
+            string pre=s.substr(0,1+i);
+            string suff=s.substr(1+i);
+            if(isPalindrome(pre))
+            {
+                v.push_back(pre);
+                find(suff,v);
+                v.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> partition(string s) {
+       vector<string> v;
+       find(s,v);
+       return ans;
+    }
+};
