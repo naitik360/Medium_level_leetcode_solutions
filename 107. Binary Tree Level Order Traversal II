@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> res;
+    if(!root)
+        return res;
+    vector<int> vlevel;
+    queue<TreeNode*> q;
+    q.push(root);
+    while(!q.empty()){
+        int t=q.size();
+        while(t--)
+        {
+            TreeNode* front = q.front();
+            q.pop();
+             vlevel.push_back(front->val);
+            if(front->left)
+              q.push(front->left);
+        
+            if(front->right)
+              q.push(front->right);
+        }
+      res.push_back(vlevel);
+        vlevel.clear();
+    }
+    reverse(res.begin(),res.end());
+    return res;
+    }
+};
