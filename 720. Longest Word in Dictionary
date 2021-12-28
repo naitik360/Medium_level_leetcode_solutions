@@ -1,0 +1,25 @@
+class Solution{
+public:
+    string longestWord(vector<string>& v){
+        sort(v.begin(),v.end());
+        set<string> k;
+        k.insert("");
+        string ans="",h="";
+        int mx_len=0;
+        for(auto i : v)
+        {   
+            h=i;
+            h.pop_back();
+           if(k.count(h))
+           {   
+               if(mx_len<i.size())
+               {
+                   ans=i;
+                   mx_len=i.size();
+               }
+               k.insert(i);
+           }
+        }
+      return ans;
+    }
+};
