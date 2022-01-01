@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool queryString(string s, int n) {
+        queue<string> q;
+        q.push("1");
+        string s1="",s2="";
+        int k=1;
+        while(q.size())
+        {   
+            
+            s1=q.front();q.pop();
+            if(k<=n)
+            {
+                if(s.find(s1)==string::npos)
+                     return 0;
+            }
+            s2=s1+"0";
+            k++;
+            s1=s1+"1";
+            q.push(s1);
+            q.push(s2);
+            if(k>n)
+                break;
+        }
+      return 1;
+    }
+};
