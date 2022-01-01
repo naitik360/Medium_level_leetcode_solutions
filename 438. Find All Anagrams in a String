@@ -1,0 +1,37 @@
+class Solution{
+public:
+    vector<int> findAnagrams(string s, string p) {
+        if(p.size()>s.size())
+              return {};
+        vector<int> res;
+        vector<int> v(26,0);
+        for(auto i : p)
+            v[i-'a']++;
+        
+        vector<int> k(26,0);
+        for(int i=0;i<min(s.size(),p.size());i++)
+              k[s[i]-'a']++;
+        
+        if(v==k)
+            res.push_back(0);
+        
+        for(int i=1;i<s.size()-p.size()+1;i++)
+        {
+            k[s[i-1]-'a']--;
+            k[s[i+p.size()-1]-'a']++;
+            if(k==v)
+            {   
+                // cout<<i<<"\n";
+                // for(int j=0;j<26;j++)
+                // {
+                //     cout<<k[j]<<" "<<char(j+'a')<<" "<<v[j]<<" "<<"\n";
+                // }
+              res.push_back(i);
+            }
+        }
+      return res;
+    }
+};
+// c b a e b a b a c d       10
+// 0 1 2 3 4 5 6 7 8 9      
+// a b c                      3
