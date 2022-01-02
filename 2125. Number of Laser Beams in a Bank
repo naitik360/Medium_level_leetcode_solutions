@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int numberOfBeams(vector<string>& v) {
+        if(v.size()==1)
+            return 0;
+        vector<int> k;
+        int ans=0,prev;
+        for(int i=0;i<v.size();i++)
+        {   
+            ans=0;
+            for(auto j : v[i])
+            {
+                if(j=='1')
+                     ans++;
+            }
+            if(ans)
+              k.push_back(ans);
+        }
+        ans=0;
+        if(k.size())
+          prev=k[0];
+        for(int i=1;i<k.size();i++)
+        {
+            ans=ans+prev*k[i];
+            prev=k[i];
+        }
+      return ans;
+    }
+};
