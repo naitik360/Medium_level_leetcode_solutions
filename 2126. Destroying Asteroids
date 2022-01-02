@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool asteroidsDestroyed(int k, vector<int>& v) {
+        sort(v.begin(),v.end());
+        long long int g=k; // this was done to solve problem on adding use long long int helps in integer overflow
+        for(auto &i : v)
+        {
+            if(g-i>=0)
+                g+=i;
+            else if(g-i<0)
+                return 0;
+        }
+      return 1;
+    }
+};
