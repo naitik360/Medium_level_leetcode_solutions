@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int compress(vector<char>& v) {
+        if(v.size()==1)
+            return 1;
+        int c=1,j=0;
+        char k = v[0];
+        for(int i=1;i<v.size();i++)
+        {
+            if(v[i]==k)
+            {
+                c++;
+            }
+            else if(c==1)
+            {
+                c=1;
+                v[j]=k;
+                j++;
+                k=v[i];
+            }
+            else if(c>=2)
+            {   
+                v[j]=k;
+                j++;
+                for(auto t : to_string(c))
+                {
+                    v[j]=t;
+                    j++;
+                }
+                k=v[i];
+                c=1;
+            }
+        }
+        if(c==1)
+            {
+                c=1;
+                v[j]=k;
+                j++;
+            }
+        else if(c>=2)
+        {   
+            v[j]=k;
+            j++;
+            for(auto t : to_string(c))
+            {
+                v[j]=t;
+                j++;
+            }
+        }
+      return j;
+    }
+};
