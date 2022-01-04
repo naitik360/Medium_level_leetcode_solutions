@@ -1,0 +1,53 @@
+class Solution{
+public:
+    int maxFreq(string s, int mxL, int mn, int mx){
+        unordered_map<string,int> mp;
+        int res=0,val=0;
+        string k="";
+        for(int i=mn;i<=mx;i++)
+        {   
+            vector<int> m(26,0);
+            k="";
+            val=0;
+            mp.clear();
+            for(int j=0;j<i;j++)
+            {
+                m[s[j]-'a']++;
+                k+=s[j];
+            }
+            for(auto t : m)
+            {
+                if(t)
+                    val++;
+            }
+            if(val<=mxL)
+            {
+                mp[k]++;
+                res=max(res,mp[k]);
+            }
+        
+            for(int j=i;j<s.size();j++)
+            {
+                if(m[s[j-i]-'a']==1)
+                {
+                     m[s[j-i]-'a']=0;
+                     val--;
+                }
+                else if(m[s[j-i]-'a']>0)
+                    m[s[j-i]-'a']--;
+                if(m[s[j]-'a']==0)
+                    val++;
+                m[s[j]-'a']++;
+                
+                k=k.substr(1);
+                k+=s[j];
+                if(val<=mxL)
+                {
+                    mp[k]++;
+                    res=max(res,mp[k]);
+                }
+            }
+        }
+      return res;
+    }
+};
