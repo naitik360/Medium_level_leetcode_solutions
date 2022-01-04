@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int ans=INT_MIN;
+    void solve(TreeNode* root,int mn,int mx)
+    {
+        if(!root)
+             return ;
+        mx=max(mx,root->val);
+        mn=min(mn,root->val);
+        solve(root->left,mn,mx);
+        if(!root->left && !root->right)
+            ans=max(ans,abs(mx-mn));
+        solve(root->right,mn,mx);
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        solve(root,INT_MAX,INT_MIN);
+        return ans;
+    }
+};
