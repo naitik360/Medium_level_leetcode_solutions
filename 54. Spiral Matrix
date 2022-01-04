@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& v){
+        vector<int> res;
+        int left=0,right=v[0].size()-1,top=0,bottom=v.size()-1,dir=1;
+        while(left<=right && top<=bottom)
+        {
+            if(dir==1)
+            {
+                for(int i=left;i<=right;i++)
+                {
+                    res.push_back(v[top][i]);
+                }
+                dir=2;
+                top++;
+            }
+            else if(dir==2)
+            {
+                for(int i=top;i<=bottom;i++)
+                {
+                    res.push_back(v[i][right]);
+                }
+                dir=3;
+                right--;
+            }
+            else if(dir==3)
+            {
+                for(int i=right;i>=left;i--)
+                {
+                    res.push_back(v[bottom][i]);
+                }
+                dir=4;
+                bottom--;
+            }
+            else if(dir==4)
+            {
+                for(int i=bottom;i>=top;i--)
+                {
+                    res.push_back(v[i][left]);
+                }
+                dir=1;
+                left++;
+            }
+        }
+      return res;
+    }
+};
