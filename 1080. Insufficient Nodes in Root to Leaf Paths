@@ -1,0 +1,16 @@
+class Solution {
+public:
+    TreeNode* sufficientSubset(TreeNode* root, int limit) 
+    {
+        if(!root)
+            return NULL;
+        if(!root -> left && !root -> right)
+            return (limit > root -> val) ? NULL : root;
+        root -> left = sufficientSubset(root -> left, limit - root -> val);
+        root -> right = sufficientSubset(root -> right, limit - root -> val);
+        return (!root -> left && !root -> right) ? NULL : root;
+    }
+};
+//line 11 ->the most imp line -----> //leaf node the return NULL,bcz it was int he path of root to leaf earlier so should be removed 
+// like int the explame 1 the last line is actully helping to remove the nodes  from 3 left
+// -99  ans 12. it return null to root 3 and thus completly removes the -99 ->left 12 path  completly.
