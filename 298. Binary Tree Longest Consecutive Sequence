@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int res=INT_MIN;
+    void find(TreeNode* root,int prev,int len)
+    {   
+        res=max(res,len);
+        if(!root)
+            return ;
+        len = root->val==prev+1 ? ++len :  1;
+        find(root->left,root->val,len);
+        find(root->right,root->val,len);
+    }
+    int longestConsecutive(TreeNode* root) {
+        if(!root)
+            return 0;
+        find(root,INT_MIN,0);
+        return res;
+    }
+};
