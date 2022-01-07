@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>> groupThePeople(vector<int>& v) {
+        vector<vector<int>> res;
+        unordered_map<int,vector<int>> m;
+        for(int i=0;i<v.size();i++)
+        {
+            m[v[i]].push_back(i);
+        }
+        
+        v.clear();
+        int k,t;
+        vector<int> ans;
+        for(auto i : m)
+        {
+            v=i.second;
+            t=0;
+            
+            for(auto j : v)
+            {
+                t++;
+                ans.push_back(j);
+                if(t==i.first)
+                {
+                    res.push_back(ans);
+                    ans.clear();
+                    t=0;
+                }
+            }
+        }
+      return res;
+    }
+};
