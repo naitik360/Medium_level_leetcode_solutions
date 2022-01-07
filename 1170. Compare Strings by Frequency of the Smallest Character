@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int find(string &s)
+    {   
+        char mn='z';
+        int k=-1;
+        vector<int> v(26,0);
+        for(auto i : s)
+        {
+            v[i-'a']++;
+            if(i<=mn)
+            {
+                mn=i;
+                k=v[i-'a'];
+            }
+        }
+      return k;
+    }
+    vector<int> solve(vector<string>& v)
+    {   
+        vector<int> res;
+        for(auto i : v)
+        {
+            res.push_back(find(i));
+        }
+      return res;
+    }
+    vector<int> numSmallerByFrequency(vector<string>& v, vector<string>& w) {
+        vector<int> res;
+        vector<int> k = solve(v);
+        vector<int> b = solve(w);
+        sort(b.begin(),b.end());
+        for(auto i : k)
+        {
+            int j = upper_bound(b.begin(),b.end(),i)-b.begin();
+            res.push_back(w.size()-j);
+        }
+      return res;
+    }
+};
