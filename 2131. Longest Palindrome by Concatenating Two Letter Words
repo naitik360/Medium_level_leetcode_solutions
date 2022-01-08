@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int longestPalindrome(vector<string>& v) {
+        map<string,int> m;
+        int res=0;
+        for(auto &i : v)
+            m[i]++;
+       
+        string k="";
+        bool ok=0;
+        for(auto &i : m)
+        {
+            k=i.first;
+            string s=i.first;
+            reverse(k.begin(),k.end());
+            if(m.find(k)!=m.end())
+            {    
+                if(k==s)
+                {
+                    res=res+(i.second==1 ? 0 : (i.second/2)*4);
+                    if(i.second%2==1)
+                        ok=1;
+                }
+                else
+                {
+                    res=res+min(m[k],i.second)*4;
+                }
+               m.erase(k); 
+            }
+                m.erase(s);
+
+        }
+        if(ok)
+        res=res+2;
+      return res;
+    }
+};
