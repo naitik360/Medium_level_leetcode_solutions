@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        int n=sqrt(c),k;
+        int i=0,j=n;
+        while(i<=j)
+        {
+            if(j*j>c-i*i)  // helps in avoiding integer overflow
+                j--;
+            else if(j*j<c-i*i)  // helps in avoiding integer overflow
+                i++;
+            else 
+                return 1;
+        }
+      return 0;
+    }
+};
