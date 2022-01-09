@@ -1,0 +1,45 @@
+class Solution{
+public:
+    vector<string> printVertically(string s) {
+        stringstream ss(s);
+        vector<string> v;
+        string g="";
+        int c=0;
+        while(ss>>g)
+        {
+            v.push_back(g);
+            int t=g.size();
+            c=max(c,t);
+        }
+        vector<vector<char>> k(v.size(),vector<char>(c,'c'));
+        
+        for(int i=0;i<k.size();i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                if(j<v[i].size())
+                {
+                    k[i][j]=v[i][j];
+                }
+                else
+                {
+                    k[i][j]=' ';
+                }
+            }
+        }
+        string res="";
+        v.clear();
+        for(int i=0;i<c;i++)
+        {  
+            res.clear();
+            for(int j=0;j<k.size();j++)
+            {
+                res+=k[j][i];
+            }
+            while(res.back()==' ')
+                res.pop_back();
+          v.push_back(res);
+        }
+      return v;
+    }
+};
