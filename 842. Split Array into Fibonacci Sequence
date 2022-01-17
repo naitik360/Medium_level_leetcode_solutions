@@ -1,0 +1,68 @@
+class Solution{
+public:
+    vector<int> res;
+    bool ok=1;
+    bool check(string s)
+    {   
+        if(stoll(s)>INT_MAX) // check whether greater tha max to avoid integer overflow since output is of type int.
+            return 0;
+        int k=s.size();
+        
+        if(s[0]=='0')
+        {
+            if(k==1)
+                return 1;
+            else
+            {
+                if(stoll(s)==0)
+                  return 1;
+                else
+                  return 0;
+            }
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    void DFS(vector<int> &v,string &s,int index,int cnt)
+    {
+        if(index==s.size())
+        {   
+            if(v.size()>2 && s.size()==cnt && ok)
+            {
+                res=v;
+                ok=0;
+            }
+            return ;
+        }
+        
+        string g="";
+        for(int i=index;i<s.size();i++)
+        {
+            g+=s[i];
+            if(stoll(g)>INT_MAX) // check to avoid unecessary calling
+                return ;
+            if(v.size()<2 &&  check(g))
+            {
+                v.push_back(stoll(g));
+                DFS(v,s,i+1,cnt+g.size());
+                v.pop_back();
+            }
+            else
+            {
+                if( check(g) && stoll(g)-v[v.size()-2]==(long long)(v[v.size()-1]))//subtracting before help to check integeroverflow as the return type is vector<int> so the number we are about to push needs to be of type int so check it before 
+                {   
+                    v.push_back(stoll(g));
+                    DFS(v,s,i+1,cnt+g.size());
+                    v.pop_back();
+                }
+            }
+        }
+    }
+    vector<int> splitIntoFibonacci(string s) {
+        vector<int> v;
+        DFS(v,s,0,0);
+        return res;
+    }
+};
