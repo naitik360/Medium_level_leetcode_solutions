@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> ans;
+    bool DFS(vector<int> &res,int index,unordered_set<int> &s,int n)
+    {
+        if(s.size()==0)
+            return 1;
+        
+        if(res[index]!=-1)
+            return DFS(res,index+1,s,n);
+        
+        for(int j=n;j>=1;j--)
+        {
+            int dist = j == 1 ? 0 : j;
+            if(s.count(j) && (dist+index<res.size() && res[index+dist]==-1))
+            {
+                s.erase(j);
+                res[index]=res[index+dist]=j;
+                if(DFS(res,index+1,s,n))
+                    return 1;
+                res[index]=res[index+dist]=-1;
+                s.insert(j);
+            }
+        }
+      return 0;
+    }
+    vector<int> constructDistancedSequence(int n) {
+       vector<int> res(2*n-1,-1);
+       unordered_set<int> s;
+       for(int i=1;i<=n;i++)
+            s.insert(i);
+       DFS(res,0,s,n);
+       return res;
+    }
+};
