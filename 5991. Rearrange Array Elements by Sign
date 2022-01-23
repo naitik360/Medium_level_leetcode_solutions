@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& v) {
+       
+        vector<int> k,a;
+        for(int j=0;j<v.size();j++)
+        {
+            if(v[j]<0)
+                k.push_back(v[j]);
+            if(v[j]>=0)
+                a.push_back(v[j]);
+        }
+       // v.clear();
+        int t=0;
+        vector<int> r(v.size(),0);
+        for(auto i : a)
+        {
+            r[t]=i;
+            t=t+2;
+        }
+        t=1;
+        for(auto i : k)
+        {
+            r[t]=i;
+            t=t+2;
+        }
+        
+     return r;
+    }
+};
