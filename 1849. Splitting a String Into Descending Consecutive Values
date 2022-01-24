@@ -1,0 +1,44 @@
+class Solution {
+public:
+    bool DFS(string &s,long long int prev,int index,int cnt)
+    {
+        if(index==s.size())
+        {
+            if(cnt>=2)
+            {
+                return 1;
+            }
+          return 0;
+        }
+        long long int curr=0;
+        for(int i=index;i<s.size();i++)
+        {   
+            if((LLONG_MAX-((s[i]-'0')))/10>=curr)
+            {
+               curr=curr*10+(s[i]-'0');
+               if(prev-curr==1)
+               {   
+                  if(DFS(s,curr,i+1,cnt+1))
+                  {
+                     return 1;
+                  }
+               }
+            }
+        }
+      return 0;
+    }
+    bool splitString(string s) {
+        long long int t=0,ok=0;
+        bool res=0;
+        for(int i=0;i<s.size();i++)
+        {   
+            if((LLONG_MAX-((s[i]-'0')))/10>=t)
+            {
+                t=t*10+(s[i]-'0');
+                res=res||DFS(s,t,i+1,1);
+            }
+            
+        }
+      return res;
+    }
+};
