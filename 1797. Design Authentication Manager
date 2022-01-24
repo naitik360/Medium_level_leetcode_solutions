@@ -1,0 +1,29 @@
+class AuthenticationManager {
+public:
+    unordered_map<string,int> m;
+    int time=0;
+    AuthenticationManager(int timeToLive) {
+        time=timeToLive;
+    }
+    
+    void generate(string tokenId, int currentTime) {
+        m[tokenId]=currentTime;
+    }
+    
+    void renew(string tokenId, int currentTime) {
+        if(m.find(tokenId)!=m.end() && time+m[tokenId]>currentTime)
+        {
+             m[tokenId]=currentTime;
+        }
+    }
+    
+    int countUnexpiredTokens(int currentTime) {
+        int ans=0;
+        for(auto &i : m)
+        {
+            if(i.second+time>currentTime)
+                ans++;
+        }
+      return ans;
+    }
+};
