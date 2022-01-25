@@ -1,0 +1,34 @@
+class TopVotedCandidate {
+public:
+    vector<int> v;
+    vector<int> k;
+    TopVotedCandidate(vector<int>& persons, vector<int>& times) {
+        int m[5002]={0};
+        int cand=-1,mx=0;
+        k=times;
+        for(auto &i : persons)
+        {
+            m[i]++;
+            if(m[i]>=mx)
+            {
+                cand=i;
+                mx=m[i];
+            }
+            v.push_back(cand);
+        }
+    }
+    
+    int q(int t) {
+      int index=lower_bound(k.begin(),k.end(),t)-k.begin(); 
+      if(index==k.size())// lement not find we say last ele=10 in k array but we search for 15 time
+          return v[index-1];
+      else if(k[index]==t) // elelemnt found
+          return v[index];
+      else
+          return v[index-1];//element not found so we return the previous vlaue
+        /*ex - 1 3 5 6 7  9 11 15 , find-8
+        here 8 is not there so index will point to 9 value index
+        so we return v[index-1] to point to 7
+        */
+    }
+};
