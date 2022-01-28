@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int ans=0;
+    unordered_map<char, string> m;
+    unordered_map<string, char> mp;
+    void DFS(string p,string s)
+    {
+        if(p.size()==0)
+        {
+            if(s.size()==0)
+            {
+                ans=1;
+            }
+          return ;
+        }
+        
+        char k=p[0];
+        string next=p.substr(1);
+        if(m.find(k)!=m.end())
+        {
+            string prev=m[k];
+            if(s.size()>=prev.size())
+            {
+                string left=s.substr(0,prev.size());
+                string right=s.substr(prev.size());
+                if(prev==left)
+                     DFS(next,right);
+                else
+                    return ;
+            }
+            else
+            {
+                return ;
+            }
+        }
+        else
+        {
+            for(int i=0;i<s.size();i++)
+            {
+                string left=s.substr(0,i+1);
+                string right=s.substr(i+1);
+                if(mp.find(left)!=mp.end())
+                     continue;
+                m[k]=left;
+                mp[left]=k;
+                DFS(next,right);
+                mp.erase(left);
+                m.erase(k);
+            }
+        }
+    }
+    bool wordPatternMatch(string p, string s) {
+        DFS(p,s);
+        return ans;
+    }
+};
