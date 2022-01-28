@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int ans=0;
+    void DFS(vector<vector<int>>& v, vector<vector<int>>& m,vector<int> &check_m,int i,int sum)
+    {
+        if(i==v.size())
+        {
+            ans=max(ans,sum);
+            return ;
+        }
+        
+         for(int j=0;j<v.size();j++)
+         {
+             if(check_m[j]==0)
+             {
+                 check_m[j]=1;
+                 
+                 int curr_sum=0;
+                 
+                 for(int t=0;t<v[0].size();t++)
+                     curr_sum+=(v[i][t]==m[j][t]);
+                 
+                 DFS(v,m,check_m,i+1,sum+curr_sum);
+                 
+                 check_m[j]=0;
+                 
+             }
+         }
+    }
+    int maxCompatibilitySum(vector<vector<int>>& v, vector<vector<int>>& m) {
+        int n=v.size();
+        vector<int> check_m(n,0);
+        DFS(v,m,check_m,0,0);
+        return ans;
+    }
+};
