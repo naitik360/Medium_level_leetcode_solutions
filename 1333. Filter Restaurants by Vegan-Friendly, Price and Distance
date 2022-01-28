@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool static cmp(vector<int>&a,vector<int>&b) {
+         if(a[1]==b[1]) return a[0]>b[0];
+         return a[1]>b[1];
+    }
+    vector<int> filterRestaurants(vector<vector<int>>& res, int vegan, int maxPrice, int maxDistance) {
+          std::ios::sync_with_stdio(false);
+          std::cin.tie(nullptr);
+          sort(res.begin(),res.end(),cmp);
+          vector<int> ans;
+          for(int i=0; i<res.size(); i++) {
+               if(res[i][3]<=maxPrice && res[i][4]<=maxDistance && ((vegan && res[i][2]) || !vegan)) 
+                    ans.push_back(res[i][0]);
+          }
+        return ans;
+    }
+};
