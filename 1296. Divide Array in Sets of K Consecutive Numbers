@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool isPossibleDivide(vector<int>& v, int k) {
+        unordered_map<int,int> m;
+        set<int> s;
+        int val;
+        for(auto &i : v)
+        {
+            m[i]++;
+            s.insert(i);
+        }
+        for(auto &i : s)
+        {
+            while(m.find(i)!=m.end() && m[i]!=0)
+            {
+                val=i;
+                int ans=0;
+                for(int t=val;t<=k+(val-1);t++)
+                {
+                   if(m.find(t)==m.end())
+                       return 0;
+                   else
+                   {
+                       ans++;
+                       if(m[t]==1)
+                       {
+                          m.erase(t);
+                       }
+                       else
+                          m[t]--;
+                    }
+                }
+                if(ans!=k)
+                  return 0;
+            }
+         }
+      return 1;
+    }
+};
