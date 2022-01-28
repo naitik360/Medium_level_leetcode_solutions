@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int largestValsFromLabels(vector<int>& v, vector<int>& l, int uW, int uL) {
+        
+        unordered_map<int,int> m;
+        
+        int res=0,sum=0;
+        
+        vector<pair<int,int>> b;
+        
+        for(int i=0;i<v.size();i++)
+        {
+            b.push_back({v[i],l[i]});
+        }
+        
+        sort(b.rbegin(),b.rend());
+        
+        for(auto &i : b)
+        {
+            m[i.second]++;
+            
+            if(m[i.second]<=uL && res<uW)
+            {
+               sum+=(i.first);
+               res++;
+            }
+            
+        }
+      return sum; 
+    }
+};
