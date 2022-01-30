@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> maxScoreIndices(vector<int>& v) {
+        int n=v.size(),s=0,t=0,ans=0;
+        vector<int> left(n+1,0),right(n+1,0);
+        for(int i=0;i<n;i++)
+        {
+            if(v[i]==0)
+                s=s+1;
+           
+            left[i+1]=s;
+        }
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            if(v[i])
+                 t=t+1;
+            right[i]=t;
+        }
+        vector<int> res;
+        
+        for(int i=0;i<=n;i++)
+        {
+            if(ans<right[i]+left[i])
+            {
+                ans=right[i]+left[i];
+                res.clear();
+                res.push_back(i);
+            }
+            else if(ans==right[i]+left[i])
+            {
+                res.push_back(i);
+            }
+        }
+        
+      return res;
+    }
+};
