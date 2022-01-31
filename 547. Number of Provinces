@@ -1,0 +1,42 @@
+class Solution {
+public:
+    void DFS(vector<vector<int>> &g,int s,vector<int> &vis)
+    {
+        if(vis[s])
+              return ;
+        vis[s]=1;
+        
+        for(int i=0;i<g[s].size();i++)
+        {
+            DFS(g,g[s][i],vis);
+        }
+    }
+    int findCircleNum(vector<vector<int>>& v) {
+        int n=v.size(),ans=0;
+        vector<vector<int>> g(n+1);
+        unordered_set<pair<int,int>> s;
+        vector<int> vis(n+1,0);
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=0;j<v[0].size();j++)
+            {
+                if(v[i][j] && (!(s.find({i+1,j+1})!=s.end() || s.find({j+1,i+1})!=s.end())))
+                {  
+                    s.insert({i+1,j+1}); 
+                    g[i+1].push_back(j+1);
+                    g[j+1].push_back(i+1);
+                }
+            }
+        }
+        
+        for(int i=1;i<=n;i++)
+        {
+            if(vis[i]==0)
+            {
+                DFS(g,i,vis);
+                ans++;
+            }
+        }
+      return ans;
+    }
+};
