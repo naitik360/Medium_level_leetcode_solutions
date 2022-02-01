@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void DFS(vector<vector<int>>& v,int i,int j,int &k,int &ok)
+    {
+        if(i<=0 || i>=v.size()-1 || j<=0 || j>=v[0].size()-1)
+        {
+            if(v[i][j])
+                 ok=1;
+            return ;
+        }
+        if(v[i][j]==0)
+            return ;
+        
+        v[i][j]=0;
+        k++;
+        DFS(v,i+1,j,k,ok);
+        DFS(v,i-1,j,k,ok);
+        DFS(v,i,j+1,k,ok);
+        DFS(v,i,j-1,k,ok);
+    }
+    int numEnclaves(vector<vector<int>>& v) {
+        int t=0;
+        for(int i=1;i<v.size();i++)
+        {
+            for(int j=1;j<v[0].size()-1;j++)
+            {
+                if(v[i][j])
+                {   
+                    int k=0,ok=0;
+                    DFS(v,i,j,k,ok);
+                    if(ok==0)
+                      t=t+k;
+                }
+            }
+        }
+      return t;
+    }
+};
