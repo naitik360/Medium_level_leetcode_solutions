@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& v) {
+        vector<int> x{0,1,0,-1},y{1,0,-1,0};
+        queue<pair<int,int>> q;
+        int r=v.size(),c=v[0].size(),dist=0,t,n_x,n_y;
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=0;j<v[0].size();j++)
+            {
+                if(v[i][j])
+                    q.push({i,j});
+            }
+        }
+        if(q.size()==r*c)
+            return -1;
+        while(q.size())
+        {
+            t=q.size();
+            dist++;
+            
+            while(t--)
+            {
+                auto[a,b]=q.front();q.pop();
+                
+                for(int i=0;i<4;i++)
+                {
+                     n_x = a + x[i];
+                     n_y = b + y[i];
+                    if(n_x>=0 && n_x<r && n_y>=0 && n_y<c && v[n_x][n_y]==0)
+                    {
+                        q.push({n_x,n_y});
+                        v[n_x][n_y]=1;
+                    }
+                }
+            }
+        }
+      return dist-1;
+    }
+};
