@@ -1,0 +1,33 @@
+class Solution {
+public:
+    TreeNode* solve(TreeNode* root)
+    {
+        if(!root)
+            return  NULL;
+        if(!root->left && !root->right)
+        {
+            if(root->val==1)
+                return root;
+            else
+                return NULL;
+        }
+        
+        root->left = solve(root->left);
+        root->right = solve(root->right);
+        
+        if(root->val==0)
+        {
+            if(root->left==NULL && root->right==NULL)
+                return NULL;
+            else 
+                return root;
+        }
+        else
+        {
+            return root;
+        }
+    }
+    TreeNode* pruneTree(TreeNode* root) {
+        return solve(root);
+    }
+};
