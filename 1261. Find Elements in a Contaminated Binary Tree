@@ -1,0 +1,35 @@
+class FindElements {
+public:
+    unordered_set<int> s;
+    void change(TreeNode* &root)
+    {
+        if(!root)
+            return ;
+        int x = root->val;
+        if(root->left)
+        {   
+            s.insert(2*x+1);
+            root->left->val=2*x+1;
+            change(root->left);
+        }
+        
+        if(root->right)
+        {   
+            s.insert(2*x+2);
+            root->right->val=2*x+2;
+            change(root->right);
+        } 
+    }
+    FindElements(TreeNode* root) {
+        if(root!=NULL)
+        {   
+            s.insert(0);
+            root->val=0;
+            change(root);
+        }
+    }
+    
+    bool find(int k) {
+       return s.find(k)!=s.end();
+    }
+};
