@@ -1,0 +1,28 @@
+class Solution {
+public:
+     long find(TreeNode* root)
+    {
+        if(!root)
+            return 0;
+        return ((root->val) + find(root->left) +find(root->right));
+    }
+     long solve(TreeNode* root, long &k, long &ans)
+    {
+        if(!root)
+            return 0;
+        
+         long v = ((root->val) + solve(root->left,k,ans) +solve(root->right,k,ans));
+        
+         long mul = (k-v)*v;
+            
+        ans=max(ans,mul);
+        
+        return v;
+    }
+    int maxProduct(TreeNode* root) {
+         long k = find(root);
+         long ans=0;
+        solve(root,k,ans);
+        return ans%(1000000007);
+    }
+};
