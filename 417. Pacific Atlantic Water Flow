@@ -1,0 +1,49 @@
+class Solution {
+public:
+    void DFS(vector<vector<int>>& v,int r,int c,vector<vector<int>>& vis,int prev)
+    {   
+        if(r<0 || c<0 || r>=v.size() || c>=v[0].size() || v[r][c]<prev || vis[r][c])
+             return ;
+        
+        vis[r][c]=1;
+        DFS(v,r+1,c,vis,v[r][c]);
+        DFS(v,r-1,c,vis,v[r][c]);
+        DFS(v,r,c+1,vis,v[r][c]);
+        DFS(v,r,c-1,vis,v[r][c]);
+    }
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& v) {
+        int n=v.size(),m=v[0].size();
+        vector<vector<int>> ans,p(n,vector<int>(m,0)),a(n,vector<int>(m,0));
+        vector<int> k;
+        
+        for(int i=0;i<n;i++)
+        {
+            DFS(v,i,0,p,0);
+            DFS(v,i,m-1,a,0);
+        }
+        
+        for(int i=0;i<m;i++)
+        {
+            DFS(v,0,i,p,0);
+            DFS(v,n-1,i,a,0);
+        }
+        
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=0;j<v[0].size();j++)
+            {   
+                
+                if(p[i][j] && a[i][j])
+                {   
+                    k.clear();
+                    k.push_back(i);
+                    k.push_back(j);
+                    ans.push_back(k);
+                }
+            }
+        }
+        
+      return ans;
+        
+    }
+};
