@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool DFS(vector<vector<int>>& v,vector<int> &vis,int curr)
+    {
+        for(auto &i : v[curr])
+        {
+            if(vis[i]==-1)
+            {
+                vis[i]=1-vis[curr];
+                if(DFS(v,vis,i)==0)
+                {
+                    return 0;
+                }
+            }
+            else if(vis[i]==vis[curr])
+            {
+                return 0;
+            }
+        }
+      return 1;
+    }
+    bool isBipartite(vector<vector<int>>& v) {
+        int n=v.size();
+        vector<int> vis(n,-1);
+        
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i]==-1)
+            {
+                if(DFS(v,vis,i)==0)
+                {
+                    return 0;
+                }
+            }
+        }
+      return 1;
+    }
+};
