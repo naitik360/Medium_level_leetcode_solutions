@@ -1,0 +1,35 @@
+class Solution {
+public:
+    double maxProbability(int n, vector<vector<int>>& v, vector<double>& p, int s, int e) {
+        
+        vector<vector<pair<int,double>>> k(n);
+        priority_queue<pair<double,int>> q;
+        vector<double> dist(n,0);
+        
+        for(int i=0;i<v.size();i++)
+        {
+            k[v[i][0]].push_back({v[i][1],p[i]});
+            k[v[i][1]].push_back({v[i][0],p[i]});
+        }
+
+        dist[s]=1.0;
+        q.push({1.0,s});
+        while(q.size())
+        {
+            double wt = q.top().first;
+            int curr = q.top().second;
+            q.pop();
+            for(auto i : k[curr])
+            {
+                int nxt = i.first;
+                double cwt = i.second;
+                if(wt*cwt>dist[nxt])
+                {
+                    dist[nxt]=wt*cwt;
+                    q.push({dist[nxt],nxt});
+                }
+            }
+        }
+      return  dist[e];
+    }
+};
