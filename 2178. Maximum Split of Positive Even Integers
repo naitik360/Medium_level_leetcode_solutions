@@ -1,0 +1,27 @@
+class Solution {
+public:
+   
+    vector<long long> maximumEvenSplit(long long n) {
+        if(n%2==1)
+        {
+             return {};
+        }
+        vector<long long> res;
+        
+        for(int i=2;i<=n;i=i+2)
+        {
+            if(n-i>i)
+            {
+                n=n-i;
+                res.push_back(i);
+            }
+            else if(n-i==0)
+            {
+                res.push_back(i);
+                break;
+            }
+          
+        }
+      return res; 
+    }
+};
