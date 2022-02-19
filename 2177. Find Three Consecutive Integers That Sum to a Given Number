@@ -1,0 +1,11 @@
+class Solution {
+public:
+    vector<long long> sumOfThree(long long n) {
+        if(n%3)
+        {
+            return {};
+        }
+        long long int k = n/3;
+        return {k-1,k,k+1};
+    }
+};
