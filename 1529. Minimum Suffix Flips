@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int minFlips(string s) {
+        int t=0,c=0;
+        char prev='0';
+        for(auto i : s)
+        {
+            if(i!=prev)
+            {
+                t++;
+                prev=i;
+            }
+        }
+      return t;
+    }
+};
