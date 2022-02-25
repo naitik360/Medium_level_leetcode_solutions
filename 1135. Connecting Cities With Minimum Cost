@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int minimumCost(int n, vector<vector<int>>& v) {
+        vector<vector<pair<int,int>>> k(n);
+        
+        for(auto &i : v)
+        {
+            k[i[0]-1].push_back({i[1]-1,i[2]});
+            k[i[1]-1].push_back({i[0]-1,i[2]});
+        }
+        
+        set<int> s;
+        
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
+        
+        q.push({0,0});
+        
+        int sum=0;
+        
+        while(q.size() && s.size()<n)
+        {
+            pair<int,int> p = q.top();q.pop();
+            
+            if(s.find(p.second)==s.end())
+            {
+                s.insert(p.second);
+                
+                for(auto &i : k[p.second])
+                {
+                    if(s.find(i.first)==s.end())
+                    {
+                        q.push({i.second,i.first});
+                    }
+                }
+                
+                sum+=p.first;
+            }
+        }
+        
+        if(s.size()!=n)
+              return -1;
+        else
+              return sum;
+    }
+};
