@@ -1,0 +1,33 @@
+#define pii pair<int,int>
+#define pb push_back
+#define fr first
+#define sc second
+
+class Solution {
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int n=points.size();
+		set<pii> s; 
+        priority_queue<pair<int,pii>, vector<pair<int,pii>>, greater<pair<int,pii>>> q;
+        int ans=0; q.push({0,{points[0][0],points[0][1]}});  
+        while(!q.empty() && s.size()<n)
+        {
+            pair<int,pii> pi=q.top(); q.pop(); 
+            if(s.find(pi.sc)==s.end()) 
+            {
+                s.insert(pi.sc); 
+                
+			    for(auto &i : points)
+                {
+                    if(s.find({i[0],i[1]})==s.end())
+                    {  
+                       int d = abs(i[0]-pi.second.first)+abs(i[1]-pi.second.second);
+                       q.push({d,{i[0],i[1]}});
+                    }
+                }
+              ans+=pi.first;
+            }
+        }
+        return ans;
+    }
+};
