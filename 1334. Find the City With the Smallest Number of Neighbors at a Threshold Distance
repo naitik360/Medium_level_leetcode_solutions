@@ -1,0 +1,60 @@
+bool static cmp(const pair<int,int> p1 ,const pair<int,int> p2)
+{
+    if(p1.first != p2.first)
+        return p1.first < p2.first;
+    
+    return p1.second > p2.second;
+}
+class Solution {
+public:
+    vector<pair<int,int>> ans;
+    void Dijk(vector<vector<pair<int,int>>>& g,int n,int k,int s)
+    {
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
+        q.push({0,s});
+        vector<int> dist(n,INT_MAX);
+        dist[s]=0;
+        while(q.size())
+        {
+            auto p = q.top(); q.pop();
+            int w = p.first;
+            int val = p.second;
+            for(auto i : g[val])
+            {
+                int cw = i.second;
+                int cval = i.first;
+                if(dist[cval]>cw+w)
+                {
+                    dist[cval]=cw+w;
+                    q.push({dist[cval],cval});
+                }
+            }
+        }
+        int cnt=0;
+        for(auto i : dist)
+        {
+            if(i<=k)
+            {
+                cnt++;
+            }
+        }
+        ans.push_back({cnt,s});
+    }
+    int findTheCity(int n, vector<vector<int>>& v, int k) {
+        vector<vector<pair<int,int>>> g(n);
+        for(auto &i : v)
+        {
+            g[i[0]].push_back({i[1],i[2]});
+            g[i[1]].push_back({i[0],i[2]});
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            Dijk(g,n,k,i);
+        }
+        
+        sort(ans.begin(),ans.end(),cmp);
+        
+        return ans[0].second;
+    }
+};
