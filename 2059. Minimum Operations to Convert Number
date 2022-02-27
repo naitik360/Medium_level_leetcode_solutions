@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minimumOperations(vector<int>& v, int s, int g) {
+        vector<int> k(1001,0);
+        queue<int> q;
+        q.push(s);
+        int cnt=0;
+        while(q.size())
+        {
+            int d = q.size();
+            while(d--)
+            {
+                int a = q.front(); q.pop();
+                if(a==g)
+                     return cnt;
+                if(a<0 || a>1000 || k[a])
+                     continue;
+                k[a]=1;
+                for(int i=0;i<v.size();i++)
+                { 
+                     q.push(a+v[i]);
+                     q.push(a-v[i]);
+                     q.push((a^v[i]));
+                }
+            }
+            cnt++;
+        }
+       return -1;
+    }
+};
