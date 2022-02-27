@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& v) {
+        if(v[0][0] || v[v.size()-1][v.size()-1])
+              return -1;
+        if(v.size()==1 && v[0][0]==0)
+             return 1;
+        vector<vector<int>> d = {{0 , -1} , {0 , +1} , {-1 , 0} , {+1 , 0} , {-1,-1} , {+1,+1} , {-1,+1} , {+1,-1}};
+        queue<pair<int,int>> q;
+        q.push({0,0});
+        int dist=1;
+        v[0][0]=1;
+        while(q.size())
+        {
+            int k = q.size();
+            while(k--)
+            {
+                auto p = q.front(); q.pop();
+                
+                for(int i=0;i<8;i++)
+                {
+                    int nr = p.first + d[i][0];
+                    int nc = p.second + d[i][1];
+                    if(nr<0 || nr>=v.size() || nc<0 || nc>=v[0].size() || v[nr][nc]==1)
+                         continue;
+                    
+                    if(nr==v.size()-1 && nc==v[0].size()-1)
+                        return dist+1;
+                    q.push({nr,nc});
+                    v[nr][nc]=1;
+                }
+            }
+          dist++;
+        }
+      return -1;
+    }
+};
