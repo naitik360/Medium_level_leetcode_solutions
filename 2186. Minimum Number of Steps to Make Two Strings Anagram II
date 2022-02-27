@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minSteps(string s, string t) {
+         vector<int> v(26,0),k(26,0);
+        int ans=0;
+        for(auto &i : s)
+        {
+            v[i-'a']++;
+        }
+        
+        for(auto &i : t)
+        {
+            k[i-'a']++;
+        }
+        
+        for(int i=0;i<26;i++)
+        {
+            ans =  ans+ abs(v[i]-k[i]);
+        }
+        return ans;
+    }
+};
