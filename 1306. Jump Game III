@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool canReach(vector<int>& v, int s) {
+        if(v[s]==0)
+             return 1;
+        queue<int> q;
+        q.push(s);
+        unordered_set<int> k;
+        while(q.size())
+        {
+            int a = q.front(); q.pop();
+            if(a>=0 && a<v.size() && v[a]==0)
+                 return 1;
+            if(k.find(a)!=k.end())
+                 continue;
+            k.insert(a);
+            if(a>=0 && a<v.size())
+            {
+                int c1 = a + v[a];
+                if(c1>=0 && c1<v.size())
+                {
+                    q.push(c1);
+                }
+                
+                int c2 = a - v[a];
+                if(c2>=0 && c2<v.size())
+                {
+                    q.push(c2);
+                }
+            }
+        }
+      return 0;
+    }
+};
