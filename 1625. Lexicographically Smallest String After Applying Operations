@@ -1,0 +1,55 @@
+class Solution {
+public:
+    string get1(string curr,int a)
+    {
+        for(int i=0;i<curr.size();i++)
+        {
+            if(i%2)
+            {
+             int num  = curr[i]-'0';
+             num = (num+a)%10;
+             curr[i]= num+'0';
+            }
+        }
+        return curr;
+    }
+    string get2(string curr,int k)
+    {
+         k  = k%curr.size();
+        reverse(curr.begin(),curr.end());
+        reverse(curr.begin(),curr.begin()+k);
+        reverse(curr.begin()+k,curr.end());
+        return curr;
+    }
+    
+    string findLexSmallestString(string s, int a, int b) {
+        queue<string>q;
+        vector<string>st;
+        vector<string>vect;
+        set<string>visited;
+        visited.insert(s);
+        q.push(s);
+        while(!q.empty())
+        {
+          string curr = q.front();
+            q.pop();
+            vect.push_back(curr);
+            string one = get1(curr,a);
+            if(visited.find(one)==visited.end())
+            {
+                q.push(one);
+                visited.insert(one);
+            }  
+            string two = get2(curr,b);
+            if(visited.find(two)==visited.end())
+            {
+                q.push(two);
+                visited.insert(two);
+            }  
+        }
+        sort(vect.begin(),vect.end());
+      
+        return vect[0];
+        
+    }
+};
