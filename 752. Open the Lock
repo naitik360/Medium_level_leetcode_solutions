@@ -1,0 +1,80 @@
+class Solution{
+public:
+    int openLock(vector<string>& v, string g){
+        unordered_set<string> k,st(v.begin(),v.end());
+        if(st.find(g)!=st.end())
+             return -1;
+        if(g=="0000")
+             return 0;
+        queue<string> q;
+        q.push("0000");
+        int dist=0;
+        string s,temp;
+        while(q.size())
+        {
+            int z = q.size();
+            while(z--)
+            {
+                 s = q.front(); q.pop();
+                if(s==g)
+                     return dist;
+                if(st.find(s)!=st.end())
+                     continue;
+                k.insert(s);
+                for(int i=0;i<4;i++)
+                {   
+                    if(s[i]=='0' )
+                    {
+                        temp = s;
+                        temp[i]='1';
+                        if(k.find(temp)==k.end() && st.find(temp)==st.end())
+                        {
+                            q.push(temp);
+                            k.insert(temp);
+                        }
+                        temp[i]='9';
+                        if(k.find(temp)==k.end() && st.find(temp)==st.end())
+                        {
+                            q.push(temp);
+                            k.insert(temp);
+                        }
+                    }
+                    else if(s[i]=='9')
+                    {
+                         temp = s;
+                        temp[i]='0';
+                        if(k.find(temp)==k.end() && st.find(temp)==st.end())
+                        {
+                            q.push(temp);
+                            k.insert(temp);
+                        }
+                        temp[i]='8';
+                        if(k.find(temp)==k.end() && st.find(temp)==st.end())
+                        {
+                            q.push(temp);
+                            k.insert(temp);
+                        }
+                    }
+                    else
+                    {
+                         temp = s;
+                        temp[i]=char(s[i]+1);
+                        if(k.find(temp)==k.end() && st.find(temp)==st.end())
+                        {
+                            q.push(temp);
+                            k.insert(temp);
+                        }
+                        temp[i]=char(s[i]-1);
+                        if(k.find(temp)==k.end() && st.find(temp)==st.end())
+                        {
+                            q.push(temp);
+                            k.insert(temp);
+                        }
+                    }
+                }
+            }
+          dist++;
+        }
+      return -1;
+    }
+};
