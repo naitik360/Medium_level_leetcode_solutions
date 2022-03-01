@@ -13,6 +13,8 @@ public:
                 stk.pop();
                 if(stk.empty() || stk.top()!='a')return false;
                 stk.pop();
+                
+                
             }else{
                 return false;
             }
