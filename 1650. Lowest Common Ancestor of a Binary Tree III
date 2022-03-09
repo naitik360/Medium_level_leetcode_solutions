@@ -1,0 +1,23 @@
+class Solution {
+public:
+    Node* lowestCommonAncestor(Node* p, Node * q) {
+         // p and q exists in the tree
+        unordered_set<Node*> path;
+        
+        // Get the path from p to root
+        while (p != NULL) {
+            path.insert(p);
+            p = p->parent;
+        }
+        
+        // since we are going bottom up, first occurence (lowest) of node which is also present in p's path 
+        // will be the common ancestor
+        while (q != NULL) {
+            if (path.find(q) != path.end())
+                return q;
+            q = q->parent;
+        }
+        
+        return NULL;
+    }
+};
