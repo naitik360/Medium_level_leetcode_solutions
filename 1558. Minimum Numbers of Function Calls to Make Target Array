@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int ans=0;
+    void find(vector<int>& v)
+    {   
+        int t=0,g=0;
+        for(auto &i : v)
+        {
+            if(i%2==0)
+                t++;
+            if(i==0)
+                 g++;
+        }
+        if(g==v.size())
+             return ;
+        if(t==v.size())
+        {   
+             ans++;
+            for(auto &i : v)
+              i/=2;
+        }
+        else
+        {   
+            t=0;
+            for(auto &i : v)
+            {
+                if(i&1)
+                {
+                    t++;
+                    i--;
+                }
+            }
+          ans+=t;
+        }
+        find(v);
+    }
+    int minOperations(vector<int>& v) {
+       find(v);
+       return ans;
+    }
+};
