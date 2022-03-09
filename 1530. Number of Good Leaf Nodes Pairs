@@ -1,0 +1,64 @@
+class Solution {
+public:
+    vector<TreeNode*> leaf;
+    unordered_map<TreeNode*,vector<TreeNode*>> m;
+    int ans=0;
+    void BFS(TreeNode* root,int k)
+    {   
+        unordered_set<TreeNode*> s;
+        queue<TreeNode*> q;
+        q.push(root);
+        s.insert(root);
+        int dist=0;
+        while(q.size() && dist<=k)
+        {
+            int t = q.size();
+            dist++;
+            while(t--)
+            {
+                auto i = q.front(); q.pop();
+                
+                if(i->left==NULL && i->right==NULL && i!=root)
+                {
+                    ans++;
+                }
+                for(auto &j : m[i])
+                {
+                    if(s.find(j)==s.end())
+                    {
+                        s.insert(j);
+                        q.push(j);
+                    }
+                }
+            }
+        }
+    }
+    void graph(TreeNode* root,unordered_map<TreeNode*,vector<TreeNode*>> &m)
+    {
+        if(!root)
+             return ;
+        if(root->left==NULL && root->right==NULL)
+        {
+            leaf.push_back(root);
+            return ;
+        }
+        if(root->left)
+        {
+            m[root->left].push_back(root);
+            m[root].push_back(root->left);
+            graph(root->left,m);
+        }
+        if(root->right)
+        {
+            m[root->right].push_back(root);
+            m[root].push_back(root->right);
+            graph(root->right,m);
+        }
+    }
+    int countPairs(TreeNode* root, int k){
+        graph(root,m);
+        for(auto &i : leaf)
+            BFS(i,k);
+        return ans/2;  
+    }
+};
