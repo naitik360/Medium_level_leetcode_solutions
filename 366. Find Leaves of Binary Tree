@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int find(TreeNode* root)
+    {
+        if(!root)
+             return 0;
+        return 1+max(find(root->left),find(root->right));
+    }
+    void solve(TreeNode* root,vector<int>& k)
+    {
+        if(!root)
+             return ;
+        solve(root->left,k);
+        if(root->left==NULL && root->right==NULL)
+        {
+            k.push_back(root->val);
+        }
+        solve(root->right,k);
+    }
+    TreeNode* convert(TreeNode* root)
+    {
+        if(!root)
+             return NULL;
+        if(!root->left && !root->right)
+             return NULL;
+        TreeNode* l = convert(root->left);
+        TreeNode* r = convert(root->right);
+        root->left=l;
+        root->right=r;
+        
+        return root;
+    }
+    vector<vector<int>> findLeaves(TreeNode* root) {
+        if(!root)
+             return {};
+        int h = find(root);
+        
+        vector<vector<int>> res;
+        
+        vector<int> k;
+        
+        for(int i=0;i<h;i++)
+        {   
+            k.clear();
+            solve(root,k);
+            if(k.size())
+              res.push_back(k);
+            else
+              break;
+            convert(root);
+        }
+        
+      return res;
+        
+    }
+};
