@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int ans=0;
+    long long find(TreeNode* root)
+    {
+        if(!root)
+             return 0;
+        
+        
+        long long  l = find(root->left);
+        long long  r = find(root->right);
+        if(l+r==root->val)
+              ans++;
+        return root->val+l+r;
+    }
+    int equalToDescendants(TreeNode* root) {
+        if(!root)
+             return 0;
+        find(root);
+        return ans;
+    }
+};
