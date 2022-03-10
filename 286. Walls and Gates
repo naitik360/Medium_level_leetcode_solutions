@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void wallsAndGates(vector<vector<int>>& v) {
+        queue<pair<int,int>> q;
+        vector<int> d{0,1,0,-1,0};
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=0;j<v[0].size();j++)
+            {
+                if(v[i][j]==0)
+                {
+                    q.push({i,j});
+                }
+            }
+        }
+        
+        int dist=1;
+        set<pair<int,int>> s;
+        while(q.size())
+        {
+            int k = q.size();
+            while(k--)
+            {
+                auto a = q.front(); q.pop();
+                
+                for(int i=0;i<4;i++)
+                {
+                    int nr = a.first + d[i];
+                    int nc = a.second + d[i+1];
+                    
+                    if(nr<0 || nr>=v.size() || nc<0 || nc>=v[0].size() || v[nr][nc]==0 || v[nr][nc]==-1 || s.find({nr,nc})!=s.end())
+                          continue;
+                    
+                    q.push({nr,nc});
+                    s.insert({nr,nc});
+                    v[nr][nc]=dist;
+                }
+            }
+            dist++;
+        }
+      return ;
+    }
+};
