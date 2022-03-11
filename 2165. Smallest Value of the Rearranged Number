@@ -1,0 +1,74 @@
+class Solution {
+public:
+    long long smallestNumber(long long n) {
+        vector<int> v;
+        int ok=1,z=0;
+        if(n<0)
+        {
+            ok=0;
+            n=-1*n;
+        }
+        while(n)
+        {   
+            if(n%10)
+              v.push_back(n%10);
+            if(n%10==0)
+                 z++;
+            n/=10;
+        }
+        
+        if(ok)
+        {   
+            sort(v.begin(),v.end());
+            if(z)
+            {
+                n=v[0];
+                while(z)
+                {
+                    z--;
+                    n=n*10+0;
+                }
+                
+                for(int i=1;i<v.size();i++)
+                {
+                    n=n*10+v[i];
+                }
+            }
+            else
+            {
+                for(auto &i : v)
+                {
+                    n=n*10+i;
+                }
+            }
+        }
+        else
+        {
+            sort(v.rbegin(),v.rend());
+            
+            n=0;
+            if(z)
+            {
+                for(auto &i : v)
+                {
+                    n=n*10+i;
+                }
+                
+                while(z)
+                {
+                    z--;
+                    n=n*10+0;
+                }
+            }
+            else
+            {
+               for(auto &i : v)
+               {
+                   n=n*10+i;
+               }
+            }
+          n=-1*n;
+        }
+      return n;
+    }
+};
