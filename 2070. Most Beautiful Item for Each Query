@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> maximumBeauty(vector<vector<int>>& v, vector<int>& q) {
+        
+        sort(v.begin(),v.end());
+        
+        vector<int> k,res,vec;
+        
+        int index,m=0;
+        
+        for(auto &i : v)
+        {
+            k.push_back(i[0]);
+            m=max(m,i[1]);
+            vec.push_back(m);
+        }
+        
+        for(auto &i : q)
+        {
+            index = upper_bound(k.begin(),k.end(),i)-k.begin();
+            
+            index--;
+            if(index>=0) 
+              res.push_back(vec[index]);
+            else
+              res.push_back(0);
+        }
+       return res; 
+    }
+};
