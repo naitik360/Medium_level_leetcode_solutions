@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& v, int k) {
+        int obs=-v[0],oss=0;
+        
+        for(int i=1;i<v.size();i++)
+        {
+            int nbs=0;
+            int nss=0;
+            
+            if(oss-v[i]>obs)
+            {
+                nbs=oss-v[i];
+            }
+            else
+            {
+                nbs=obs;
+            }
+            
+            
+            if(obs+v[i]-k>oss)
+            {
+                nss=obs+v[i]-k;
+            }
+            else
+            {
+                nss=oss;
+            }
+            
+            oss=nss;
+            obs=nbs;
+        }
+        
+        return oss;
+    }
+};
