@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minimumCardPickup(vector<int>& v) {
+        unordered_map<int,int> m;
+        int res=INT_MAX,ok=0;
+        for(int i=0;i<v.size();i++)
+        {
+            if(m.find(v[i])!=m.end())
+            {
+                int mn = i-m[v[i]]+1;
+                res=min(res,mn);
+                m[v[i]]=i;
+                ok=1;
+            }
+            else
+            {
+                m[v[i]]=i;
+            }
+        }
+        if(ok==0)
+             return -1;
+      return res;
+    }
+};
