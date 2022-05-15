@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int maxConsecutive(int b, int t, vector<int>& v) {
+       
+        int ans=0;
+        vector<pair<int,int>> k;
+        for(auto &i : v)
+        {
+            k.push_back({i,0});
+        }
+        set<int> s(v.begin(),v.end());
+        
+        if(s.find(b)==s.end())
+        {
+            k.push_back({b,1});
+            s.insert(b);
+        }
+        
+        if(s.find(t)==s.end())
+        {
+            k.push_back({t,1});
+            s.insert(t);
+        }
+         sort(k.begin(),k.end());
+        for(int i=0;i<k.size()-1;i++)
+        {
+            if(k[i].second || k[i+1].second)
+            {
+                ans=max(ans,k[i+1].first-k[i].first);
+            }
+            else
+            {
+                ans=max(ans,k[i+1].first-k[i].first-1);
+            }
+        }
+      return ans;
+    }
+};
