@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int largestCombination(vector<int>& nums) {
+        int ans = 0;
+        for (int i = 0; i < 32; ++i) {
+            // Count how many numbers in nums have bit 1 at ith position.
+            int curr = 0;
+            for (auto& num: nums) {
+                // Push the ith bit at 0th position.
+                // And if it is 1 then it's AND with 1 will result in 1.
+                curr += (num >> i) & 1;
+            }
+            
+            // If we AND these numbers which we counted then we will get a > 0 result.
+            // So ans can be the count of these numbers, which is equal to curr variable.
+            ans = max(ans, curr);
+        }
+        return ans;
+    }
+};
