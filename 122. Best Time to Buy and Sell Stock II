@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int find(vector<int>& v, int buy,int n , vector<vector<int>> &dp,int ind)
+{
+    if(ind==n) return  0;
+    else if(dp[ind][buy]!=-1) return dp[ind][buy];
+    
+    int p = 0;
+    if(buy)
+        p = max(-v[ind]+find(v,0,n,dp,ind+1) , 0 + find(v,1,n,dp,ind+1)) ;
+    else
+         p = max(v[ind]+find(v,1,n,dp,ind+1) , 0+  find(v,0,n,dp,ind+1)) ;
+    dp[ind][buy]=p;
+  return p;
+}
+    int maxProfit(vector<int>& v) {
+                int n= v.size();
+
+        vector<vector<long>> dp(n,vector<long>(2,-1));
+   return find(v,1,n,dp,0);
+    }
+};
