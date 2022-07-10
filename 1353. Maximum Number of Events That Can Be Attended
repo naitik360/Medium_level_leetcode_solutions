@@ -1,0 +1,29 @@
+class Solution {
+public:
+
+    int maxEvents(vector<vector<int>>& v) {
+        int n = v.size();
+        sort(v.begin(),v.end());
+         priority_queue<int,vector<int>,greater<int>> q;
+         int ans=0,d=0,i=0;
+         while(q.size() ||  i<n)
+         {
+             if(q.size()==0)
+               d=v[i][0];
+               
+             while(i<v.size()  && v[i][0]==d)
+               {
+                   q.push(v[i][1]);
+                   i++;
+               }
+               
+               q.pop();
+               d++;
+               ans++;
+               
+               while(q.size() && q.top()<d)
+                 q.pop();
+         }
+       return ans;
+    }
+};
